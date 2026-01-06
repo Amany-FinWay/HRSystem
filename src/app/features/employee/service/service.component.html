@@ -1,4 +1,4 @@
- <section class="bg-white">
+ <section class="bg-[transparent]">
   <app-animated-bg></app-animated-bg>
   <div class="mx-auto max-w-6xl px-6 py-10">
     <h1 class="text-3xl font-semibold tracking-tight text-gray-900">
@@ -41,4 +41,10 @@
       </button>
     </div>
   </div>
+</section>
+
+<section>
+    <ng-container *ngIf="selectedCard == 'Leave Management'">
+        <app-leave-status></app-leave-status>
+    </ng-container>
 </section>
