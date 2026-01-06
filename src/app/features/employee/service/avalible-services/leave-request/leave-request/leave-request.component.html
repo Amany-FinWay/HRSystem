@@ -1,1 +1,102 @@
-<p>leave-request works!</p>
+<div
+  *ngIf="open"
+  class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 p-4"
+  (click)="onClose()"
+>
+  <div
+    class="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl"
+    (click)="stopBackdropClick($event)"
+  >
+    <div class="flex items-center justify-between">
+      <h3 class="text-lg font-semibold text-gray-900">Submit Leave Request</h3>
+      <button
+        type="button"
+        class="rounded-lg p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-700"
+        (click)="onClose()"
+      >
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+   <div class="mt-4">
+  <label class="mb-2 block text-sm font-medium text-gray-900">Leave Type</label>
+
+  <div class="relative">
+    <!-- Select-like button -->
+    <button
+      type="button"
+      (click)="leaveTypeOpen = !leaveTypeOpen"
+      class="flex h-10 w-full items-center justify-between rounded-lg border border-gray-200 bg-gray-50 px-3 text-sm text-gray-900
+             focus:outline-none focus:ring-2 focus:ring-blue-200"
+    >
+      <span class="truncate">
+        {{ form.leaveType || 'Select leave type' }}
+      </span>
+      <i class="fa-solid fa-chevron-down text-xs text-gray-400"></i>
+    </button>
+
+    <!-- Dropdown menu -->
+    <div
+      *ngIf="leaveTypeOpen"
+      class="absolute left-0 right-0 z-[9999] mt-2 max-h-56 overflow-auto rounded-xl border border-gray-200 bg-white shadow-lg"
+    >
+      <button
+        *ngFor="let t of leaveTypes"
+        type="button"
+        (click)="selectLeaveType(t)"
+        class="flex w-full items-center px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50"
+      >
+        {{ t }}
+      </button>
+    </div>
+  </div>
+</div>
+    <div class="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+      <div>
+        <label class="mb-2 block text-sm font-medium text-gray-900">Start Date</label>
+        <input
+          type="date"
+          [(ngModel)]="form.startDate"
+          class="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-900
+                 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+        />
+      </div>
+      <div>
+        <label class="mb-2 block text-sm font-medium text-gray-900">End Date</label>
+        <input
+          type="date"
+          [(ngModel)]="form.endDate"
+          class="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-900
+                 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+        />
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <label class="mb-2 block text-sm font-medium text-gray-900">Reason</label>
+      <textarea
+        rows="3"
+        [(ngModel)]="form.reason"
+        class="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-900
+               focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+      ></textarea>
+    </div>
+
+    <div class="mt-6 flex justify-end gap-3">
+      <button
+        type="button"
+        class="rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-50"
+        (click)="onClose()"
+      >
+        Cancel
+      </button>
+      <button
+        type="button"
+        class="rounded-full bg-blue-700 px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-800"
+        (click)="onSubmit()"
+      >
+        Submit
+      </button>
+    </div>
+  </div>
+</div>

@@ -5,6 +5,7 @@ import { LeaveStatusComponent } from "./avalible-services/leave-request/leave-st
 import { DocumentsComponent } from './avalible-services/documents/documents.component';
 import { PaySlipComponent } from "../pay-slip/pay-slip/pay-slip.component";
 import { Router } from '@angular/router';
+import { ProfileComponent } from "./avalible-services/profile-id/profile/profile.component";
 
 type Card = {
   title: string;
@@ -16,7 +17,7 @@ type Card = {
 @Component({
   selector: 'app-service',
   standalone: true,
-  imports: [CommonModule, AnimatedBgComponent, LeaveStatusComponent, DocumentsComponent, PaySlipComponent],
+  imports: [CommonModule, AnimatedBgComponent, LeaveStatusComponent, DocumentsComponent, PaySlipComponent, ProfileComponent],
   templateUrl: './service.component.html',
   styleUrls: ['./service.component.scss'],
 })
