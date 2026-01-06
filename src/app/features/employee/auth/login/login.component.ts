@@ -6,6 +6,7 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { VirtualKeyboardComponent } from '../../../../shared/components/virtual-keyboard/virtual-keyboard.component';
 import { CommonModule } from '@angular/common';
 import { AnimatedBgComponent } from '../../../../shared/components/animated-bg/animated-bg.component';
+import { UserRole } from '../../../../shared/models/types/UserRole.type';
 
 @Component({
   selector: 'app-login',
@@ -81,14 +82,19 @@ export class LoginComponent {
   // ================= Biometric Login =================
   loginBiometric() {
     this.showBiometricMessage = true;
-
+    const user = {
+      id: 'BIO123',
+      name: 'Amany Abdelfattah',
+      role: UserRole.employee
+    };
+    localStorage.setItem('user', JSON.stringify(user));
     setTimeout(() => {
       this.showBiometricMessage = false;
       this.spinnerToasterService.showToaster('success', 'Biometric login successful');
       this.authService.setUser({
         employeeId: 'BIO123',
-        role: 'employee',
-        name: 'John Doe'
+        role: UserRole.employee,
+        name: 'Mohamed Younes'
       });
       this.router.navigate(['/employee/service']);
     }, 2000);

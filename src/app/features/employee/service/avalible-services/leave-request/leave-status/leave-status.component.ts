@@ -1,22 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LeaveRequestComponent } from '../leave-request/leave-request.component';
-
-type BalanceCard = {
-  title: string;
-  remaining: number;
-  iconBgClass: string;
-  iconClass: string; // fontawesome icon class
-};
-
-type LeaveRow = {
-  type: string;
-  startDate: string;
-  endDate: string;
-  days: number;
-  status: 'approved' | 'pending' | 'rejected';
-  reason: string;
-};
+import { BalanceCard } from '../../../../../../shared/models/interfaces/BalanceCard.model';
+import { LeaveRow } from '../../../../../../shared/models/interfaces/LeaveRow.model';
+import { RequestsStatus } from '../../../../../../shared/models/types/RequestsStatus.type';
 
 @Component({
   selector: 'app-leave-status',
@@ -25,7 +12,7 @@ type LeaveRow = {
   templateUrl: './leave-status.component.html',
   styleUrls: ['./leave-status.component.scss'],
 })
-export class LeaveStatusComponent {
+export class LeaveStatusComponent implements OnInit {
   showLeaveModal = false;
 
   balanceCards: BalanceCard[] = [
@@ -49,13 +36,16 @@ export class LeaveStatusComponent {
     },
   ];
 
-  leaveRows: LeaveRow[] = [
+  leaveRows: LeaveRow[] = [];
+
+  // Demo data
+  private demoData: LeaveRow[] = [
     {
       type: 'Annual Leave',
       startDate: '2024-02-15',
       endDate: '2024-02-19',
       days: 5,
-      status: 'approved',
+      status: RequestsStatus.approved,
       reason: 'Family vacation',
     },
     {
@@ -63,7 +53,7 @@ export class LeaveStatusComponent {
       startDate: '2024-01-10',
       endDate: '2024-01-12',
       days: 3,
-      status: 'approved',
+      status: RequestsStatus.approved,
       reason: 'Medical treatment',
     },
     {
@@ -71,18 +61,36 @@ export class LeaveStatusComponent {
       startDate: '2024-02-28',
       endDate: '2024-02-28',
       days: 1,
-      status: 'pending',
+      status: RequestsStatus.pending,
       reason: 'Personal matters',
     },
   ];
 
+  ngOnInit(): void {
+    this.loadLeaveRows();
+  }
+
+  loadLeaveRows() {
+    const stored = localStorage.getItem('leaveRows');
+    if (stored) {
+      this.leaveRows = JSON.parse(stored);
+    } else {
+      this.leaveRows = this.demoData;
+      this.saveLeaveRows();
+    }
+  }
+
+  saveLeaveRows() {
+    localStorage.setItem('leaveRows', JSON.stringify(this.leaveRows));
+  }
+
   statusPillClass(status: LeaveRow['status']) {
     switch (status) {
-      case 'approved':
+      case RequestsStatus.approved:
         return 'bg-green-100 text-green-700';
-      case 'pending':
+      case RequestsStatus.pending:
         return 'bg-yellow-100 text-yellow-700';
-      case 'rejected':
+      case RequestsStatus.rejected:
         return 'bg-red-100 text-red-700';
       default:
         return 'bg-gray-100 text-gray-700';
@@ -98,16 +106,23 @@ export class LeaveStatusComponent {
   }
 
   handleSubmit(form: any) {
-    this.leaveRows = [
-      {
-        type: form.leaveType,
-        startDate: form.startDate,
-        endDate: form.endDate,
-        days: 1, // dummy
-        status: 'pending',
-        reason: form.reason || '-',
-      },
-      ...this.leaveRows,
-    ];
+    const newLeave: LeaveRow = {
+      type: form.leaveType,
+      startDate: form.startDate,
+      endDate: form.endDate,
+      days: this.calculateDays(form.startDate, form.endDate),
+      status: RequestsStatus.pending,
+      reason: form.reason || '-',
+    };
+
+    this.leaveRows = [newLeave, ...this.leaveRows];
+    this.saveLeaveRows();
+  }
+
+  calculateDays(start: string | Date, end: string | Date): number {
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+    const diffTime = endDate.getTime() - startDate.getTime();
+    return Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
   }
 }

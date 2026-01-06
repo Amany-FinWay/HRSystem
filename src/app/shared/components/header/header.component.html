@@ -1,1 +1,14 @@
-<p>header works!</p>
+<header class="bg-blue-600 text-white p-4 flex justify-between items-center">
+    <h1 class="text-xl font-bold">HR Demo App</h1>
+
+    <button *ngIf="authService.isLoggedIn() && router.url !== '/login'" (click)="logout()" class="relative p-3 rounded-full
+                bg-white/15
+                active:scale-95
+                transition-transform duration-150" title="Logout">
+        <span class="absolute inset-0 rounded-full animate-ping bg-white/30"></span>
+
+        <svg class="relative w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 2v10m6.364-6.364a9 9 0 11-12.728 0" />
+        </svg>
+    </button>
+</header>

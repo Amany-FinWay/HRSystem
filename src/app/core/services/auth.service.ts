@@ -14,15 +14,14 @@ private user: any = null;
 ) {}
 
   private dummyUsers: User[] = [
-    { id: 'emp001', pin: '1234', name: 'Alice Employee', role: 'employee' },
-    { id: 'emp002', pin: '5678', name: 'Bob Employee', role: 'employee' },
-    { id: 'mgr001', pin: '0000', name: 'Charlie Manager', role: 'manager' },
+    { id: 'emp001', pin: '1234', name: 'Alice Employee', role: UserRole.employee },
+    { id: 'emp002', pin: '5678', name: 'Bob Employee', role: UserRole.employee },
+    { id: 'mgr001', pin: '0000', name: 'Charlie Manager', role: UserRole.manager },
   ];
 
   private loggedInUser?: User;
  
   login(employeeId: string, pin: string): boolean {
-    debugger
     const user = this.dummyUsers.find(
       (u) => u.id === employeeId.toLowerCase() && u.pin === pin
     );
@@ -60,27 +59,22 @@ private user: any = null;
     return this.getUser()?.role ?? null;
   }
 
-
-//Method To Change Pin From Profile Component
   changePin(currentPin: string, newPin: string): { ok: boolean; message: string } {
-  const user = this.getUser();
-  if (!user) return { ok: false, message: 'Not logged in.' };
+    const user = this.getUser();
+    if (!user) return { ok: false, message: 'Not logged in.' };
 
-  const idx = this.dummyUsers.findIndex((u) => u.id === user.id);
-  if (idx === -1) return { ok: false, message: 'User not found.' };
+    const idx = this.dummyUsers.findIndex((u) => u.id === user.id);
+    if (idx === -1) return { ok: false, message: 'User not found.' };
 
-  // Validate current PIN
- if (user.pin !== currentPin) {
-  return { ok: false, message: 'Current PIN is incorrect.' };
-}
+    if (user.pin !== currentPin) {
+      return { ok: false, message: 'Current PIN is incorrect.' };
+    }
 
-  // Update PIN in dummyUsers
-  this.dummyUsers[idx] = { ...this.dummyUsers[idx], pin: newPin };
+    this.dummyUsers[idx] = { ...this.dummyUsers[idx], pin: newPin };
 
-  // Keep loggedInUser + localStorage in sync
-  this.loggedInUser = { ...this.dummyUsers[idx] };
-  localStorage.setItem('user', JSON.stringify(this.loggedInUser));
+    this.loggedInUser = { ...this.dummyUsers[idx] };
+    localStorage.setItem('user', JSON.stringify(this.loggedInUser));
 
-  return { ok: true, message: 'PIN updated successfully.' };
-}
+    return { ok: true, message: 'PIN updated successfully.' };
+  }
 }

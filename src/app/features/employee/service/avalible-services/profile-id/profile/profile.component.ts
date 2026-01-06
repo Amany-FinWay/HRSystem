@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../../../../core/services/auth.service';
 import { VirtualKeyboardComponent } from '../../../../../../shared/components/virtual-keyboard/virtual-keyboard.component';
+import { User } from '../../../../../../shared/models/interfaces/User.model';
+import { UserRole } from '../../../../../../shared/models/types/UserRole.type';
 
 @Component({
   selector: 'app-profile',
@@ -16,8 +18,8 @@ export class ProfileComponent {
   showKeyboardNew = false;
   showKeyboardConfirm = false;
   private keyboardHideTimeout: any;
-
-  employee = {
+  
+  employee: User = {
     name: 'Amr Adel',
     employeeId: 'EMP-001',
     department: 'Software',
@@ -25,6 +27,8 @@ export class ProfileComponent {
     hireDate: '2023-06-15',
     manager: 'Petet Saber',
     avatarUrl: 'https://i.pravatar.cc/160?img=12',
+    id: '',
+    role: UserRole.employee
   };
 
   pinForm = {
@@ -39,10 +43,16 @@ export class ProfileComponent {
 
   constructor(private auth: AuthService) {}
   ngOnInit() {
+    debugger
     const u = this.auth.getUser();
     if (u) {
       this.employee.name = u.name;
       this.employee.employeeId = u.id.toUpperCase();
+      this.employee.department = 'Software';
+      this.employee.jobTitle = 'Developer';
+      this.employee.hireDate = '15 March 2020';
+      this.employee.manager = 'Peter Saber';
+      this.employee.avatarUrl = 'https://i.pravatar.cc/160?img=12';
     }
   }
 

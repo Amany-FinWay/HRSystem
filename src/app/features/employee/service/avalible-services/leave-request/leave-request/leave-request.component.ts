@@ -13,7 +13,7 @@ export class LeaveRequestComponent {
   @Input() open = false;
   @Output() close = new EventEmitter<void>();
   @Output() submit = new EventEmitter<any>();
-leaveTypeOpen = false;
+  leaveTypeOpen = false;
   leaveTypes = [
     'Annual Leave',
     'Sick Leave',

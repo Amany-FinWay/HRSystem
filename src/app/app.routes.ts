@@ -1,9 +1,4 @@
 import { Routes } from '@angular/router';
-
-// Employee components
-
-
-// 🔑 Import the AuthGuard
 import { AuthGuard } from './core/guards/auth.guard';
 import { LoginComponent } from './features/employee/auth/login/login.component';
 import { LeaveRequestComponent } from './features/employee/service/avalible-services/leave-request/leave-request/leave-request.component';

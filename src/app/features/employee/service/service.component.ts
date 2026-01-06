@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AnimatedBgComponent } from "../../../shared/components/animated-bg/animated-bg.component";
 import { LeaveStatusComponent } from "./avalible-services/leave-request/leave-status/leave-status.component";
@@ -6,7 +6,8 @@ import { DocumentsComponent } from './avalible-services/documents/documents.comp
 import { PaySlipComponent } from "./avalible-services/pay-slip/pay-slip.component";
 import { Router } from '@angular/router';
 import { ProfileComponent } from "./avalible-services/profile-id/profile/profile.component";
-import { Card } from '../../../shared/models/types/Card.type';
+import { Card } from '../../../shared/models/interfaces/Card.model';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-service',
@@ -17,13 +18,34 @@ import { Card } from '../../../shared/models/types/Card.type';
 })
 export class ServiceComponent implements OnInit { 
   counter = 60;
-
+  showGreeting = signal(false);
+  userName!: string;
+  greetingText = signal('');
+  
   constructor(
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
     this.startTick();
+    this.setGreetingByTime();
+    this.userName = this.authService.getUser()?.name!;
+    this.showGreeting.set(true);
+    setTimeout(() => {
+      this.showGreeting.set(false);
+    }, 3000);
+  }
+
+  setGreetingByTime() {
+    const hour = new Date().getHours();
+    if (hour < 12) {
+      this.greetingText.set('Good Morning');
+    } else if (hour < 18) {
+      this.greetingText.set('Good Afternoon');
+    } else {
+      this.greetingText.set('Good Evening');
+    }
   }
   
   selectedCard?: string;
