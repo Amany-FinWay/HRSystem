@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AnimatedBgComponent } from "../../../shared/components/animated-bg/animated-bg.component";
 import { LeaveStatusComponent } from "./avalible-services/leave-request/leave-status/leave-status.component";
+import { ProfileComponent } from "./avalible-services/profile-id/profile/profile.component";
 
 type Card = {
   title: string;
@@ -13,7 +14,7 @@ type Card = {
 @Component({
   selector: 'app-service',
   standalone: true,
-  imports: [CommonModule, AnimatedBgComponent, LeaveStatusComponent],
+  imports: [CommonModule, AnimatedBgComponent, LeaveStatusComponent, ProfileComponent],
   templateUrl: './service.component.html',
   styleUrls: ['./service.component.scss'],
 })

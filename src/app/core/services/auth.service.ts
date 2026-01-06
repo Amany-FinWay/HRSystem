@@ -59,4 +59,28 @@ private user: any = null;
   getRole(): UserRole | null {
     return this.getUser()?.role ?? null;
   }
+
+
+//Method To Change Pin From Profile Component
+  changePin(currentPin: string, newPin: string): { ok: boolean; message: string } {
+  const user = this.getUser();
+  if (!user) return { ok: false, message: 'Not logged in.' };
+
+  const idx = this.dummyUsers.findIndex((u) => u.id === user.id);
+  if (idx === -1) return { ok: false, message: 'User not found.' };
+
+  // Validate current PIN
+  if (this.dummyUsers[idx].pin !== currentPin) {
+    return { ok: false, message: 'Current PIN is incorrect.' };
+  }
+
+  // Update PIN in dummyUsers
+  this.dummyUsers[idx] = { ...this.dummyUsers[idx], pin: newPin };
+
+  // Keep loggedInUser + localStorage in sync
+  this.loggedInUser = { ...this.dummyUsers[idx] };
+  localStorage.setItem('user', JSON.stringify(this.loggedInUser));
+
+  return { ok: true, message: 'PIN updated successfully.' };
+}
 }
