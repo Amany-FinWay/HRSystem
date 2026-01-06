@@ -69,7 +69,11 @@ export class LoginComponent {
       if (success) {
         this.spinnerToasterService.showToaster('success', 'Login successful');
         const role = this.authService.getRole();
+<<<<<<< HEAD
         if (role === 'employee') this.router.navigate(['/employee/service']);
+=======
+        if (role === 'employee') this.router.navigate(['/employee/services']);
+>>>>>>> 080bc2ce7c3891def19c8a2e0cd6092275e2ae56
         if (role === 'manager') this.router.navigate(['/manager/dashboard']);
       } else {
         this.spinnerToasterService.showToaster('error', 'Invalid Employee ID or PIN');

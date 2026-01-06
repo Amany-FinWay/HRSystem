@@ -13,7 +13,10 @@ import { LeaveStatusComponent } from './features/employee/leave/leave-status/lea
 import { PaySlipComponent } from './features/employee/pay-slip/pay-slip/pay-slip.component';
 import { DashboardComponent } from './features/manager/dashboard/dashboard.component';
 import { LeaveApprovalComponent } from './features/manager/leave-approval/leave-approval.component';
+<<<<<<< HEAD
 import { ServiceComponent } from './features/employee/service/service.component';
+=======
+>>>>>>> 080bc2ce7c3891def19c8a2e0cd6092275e2ae56
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -28,7 +31,10 @@ export const routes: Routes = [
 
   { path: 'manager/dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'manager/leave-approval', component: LeaveApprovalComponent, canActivate: [AuthGuard] },
+<<<<<<< HEAD
   { path: 'employee/service', component: ServiceComponent, canActivate: [AuthGuard] },
+=======
+>>>>>>> 080bc2ce7c3891def19c8a2e0cd6092275e2ae56
 
   { path: '**', redirectTo: 'login' }
 ];
