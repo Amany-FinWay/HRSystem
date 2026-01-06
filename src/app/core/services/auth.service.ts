@@ -70,9 +70,9 @@ private user: any = null;
   if (idx === -1) return { ok: false, message: 'User not found.' };
 
   // Validate current PIN
-  if (this.dummyUsers[idx].pin !== currentPin) {
-    return { ok: false, message: 'Current PIN is incorrect.' };
-  }
+ if (user.pin !== currentPin) {
+  return { ok: false, message: 'Current PIN is incorrect.' };
+}
 
   // Update PIN in dummyUsers
   this.dummyUsers[idx] = { ...this.dummyUsers[idx], pin: newPin };

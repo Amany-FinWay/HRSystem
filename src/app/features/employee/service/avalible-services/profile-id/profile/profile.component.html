@@ -60,9 +60,18 @@
           <!-- Current PIN -->
           <div>
             <label class="mb-2 block text-sm font-medium text-gray-900">Current PIN</label>
-            <input type="password" readonly maxlength="4" [value]="pinForm.currentPin"
-              (focus)="showKeyboardCurrent = true" (blur)="hideKeyboardDelayed('current')" class="h-10 w-full rounded-lg border border-gray-200 bg-gray-50 px-3 text-sm text-gray-900
-             focus:border-blue-500 focus:ring-2 focus:ring-blue-200" placeholder="Enter current PIN" />
+          <input
+  type="password"
+  readonly
+  maxlength="4"
+  [(ngModel)]="pinForm.currentPin"
+  name="currentPin"
+  (focus)="showKeyboardCurrent = true"
+  (blur)="hideKeyboardDelayed('current')"
+  class="h-10 w-full rounded-lg border border-gray-200 bg-gray-50 px-3 text-sm text-gray-900
+         focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+  placeholder="Enter current PIN"
+/>
             <div *ngIf="showKeyboardCurrent" class="mt-2">
               <app-virtual-keyboard mode="numbers" (keyPress)="appendKey('currentPin', $event)"
                 (backspace)="backspace('currentPin')" (clear)="clearInput('currentPin')"></app-virtual-keyboard>
@@ -72,9 +81,18 @@
           <!-- New PIN -->
           <div>
             <label class="mb-2 block text-sm font-medium text-gray-900">New PIN</label>
-            <input type="password" readonly maxlength="4" [value]="pinForm.newPin" (focus)="showKeyboardNew = true"
-              (blur)="hideKeyboardDelayed('new')" class="h-10 w-full rounded-lg border border-gray-200 bg-gray-50 px-3 text-sm text-gray-900
-             focus:border-blue-500 focus:ring-2 focus:ring-blue-200" placeholder="Enter new PIN" />
+           <input
+  type="password"
+  readonly
+  maxlength="4"
+  [(ngModel)]="pinForm.newPin"
+  name="newPin"
+  (focus)="showKeyboardNew = true"
+  (blur)="hideKeyboardDelayed('new')"
+  class="h-10 w-full rounded-lg border border-gray-200 bg-gray-50 px-3 text-sm text-gray-900
+         focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+  placeholder="Enter new PIN"
+/>
             <div *ngIf="showKeyboardNew" class="mt-2">
               <app-virtual-keyboard mode="numbers" (keyPress)="appendKey('newPin', $event)"
                 (backspace)="backspace('newPin')" (clear)="clearInput('newPin')"></app-virtual-keyboard>
@@ -84,9 +102,18 @@
           <!-- Confirm PIN -->
           <div class="sm:col-span-2">
             <label class="mb-2 block text-sm font-medium text-gray-900">Confirm New PIN</label>
-            <input type="password" readonly maxlength="4" [value]="pinForm.confirmPin"
-              (focus)="showKeyboardConfirm = true" (blur)="hideKeyboardDelayed('confirm')" class="h-10 w-full rounded-lg border border-gray-200 bg-gray-50 px-3 text-sm text-gray-900
-             focus:border-blue-500 focus:ring-2 focus:ring-blue-200" placeholder="Confirm new PIN" />
+            <input
+  type="password"
+  readonly
+  maxlength="4"
+  [(ngModel)]="pinForm.confirmPin"
+  name="confirmPin"
+  (focus)="showKeyboardConfirm = true"
+  (blur)="hideKeyboardDelayed('confirm')"
+  class="h-10 w-full rounded-lg border border-gray-200 bg-gray-50 px-3 text-sm text-gray-900
+         focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+  placeholder="Confirm new PIN"
+/>
             <div *ngIf="showKeyboardConfirm" class="mt-2">
               <app-virtual-keyboard mode="numbers" (keyPress)="appendKey('confirmPin', $event)"
                 (backspace)="backspace('confirmPin')" (clear)="clearInput('confirmPin')"></app-virtual-keyboard>

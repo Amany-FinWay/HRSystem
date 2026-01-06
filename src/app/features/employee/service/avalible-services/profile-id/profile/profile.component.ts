@@ -107,10 +107,13 @@ export class ProfileComponent {
     }, 200);
   }
 
-  appendKey(field: 'currentPin' | 'newPin' | 'confirmPin', key: string) {
-    if (this.pinForm[field].length < 4) this.pinForm[field] += key;
-  }
-
+ appendKey(field: 'currentPin' | 'newPin' | 'confirmPin', value: string) {
+  if (this.pinForm[field].length >= 4) return;
+  this.pinForm = {
+    ...this.pinForm,
+    [field]: this.pinForm[field] + value,
+  };
+}
   backspace(field: 'currentPin' | 'newPin' | 'confirmPin') {
     this.pinForm[field] = this.pinForm[field].slice(0, -1);
   }
