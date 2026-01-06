@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 // استيراد الـ shared components كـ Standalone
@@ -17,6 +17,10 @@ import { ToasterComponent } from './shared/components/toaster/toaster.component'
     ToasterComponent
   ]
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit{
   title = 'HRSystem';
+
+   ngAfterViewInit() {
+    import('flowbite');
+  }
 }
