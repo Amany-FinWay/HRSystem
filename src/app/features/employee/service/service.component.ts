@@ -13,6 +13,7 @@
 
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AnimatedBgComponent } from "../../../shared/components/animated-bg/animated-bg.component";
 
 type Card = {
   title: string;
@@ -24,7 +25,7 @@ type Card = {
 @Component({
   selector: 'app-service',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, AnimatedBgComponent],
   templateUrl: './service.component.html',
   styleUrls: ['./service.component.scss'],
 })

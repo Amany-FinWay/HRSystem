@@ -5,11 +5,12 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
 import { VirtualKeyboardComponent } from '../../../../shared/components/virtual-keyboard/virtual-keyboard.component';
 import { CommonModule } from '@angular/common';
+import { AnimatedBgComponent } from '../../../../shared/components/animated-bg/animated-bg.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, VirtualKeyboardComponent, CommonModule],
+  imports: [FormsModule, VirtualKeyboardComponent, CommonModule, AnimatedBgComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
