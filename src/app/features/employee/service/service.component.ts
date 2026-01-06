@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AnimatedBgComponent } from "../../../shared/components/animated-bg/animated-bg.component";
 import { LeaveStatusComponent } from "./avalible-services/leave-request/leave-status/leave-status.component";
+import { DocumentsComponent } from './avalible-services/documents/documents.component';
+import { PaySlipComponent } from "../pay-slip/pay-slip/pay-slip.component";
+import { Router } from '@angular/router';
 
 type Card = {
   title: string;
@@ -13,41 +16,67 @@ type Card = {
 @Component({
   selector: 'app-service',
   standalone: true,
-  imports: [CommonModule, AnimatedBgComponent, LeaveStatusComponent],
+  imports: [CommonModule, AnimatedBgComponent, LeaveStatusComponent, DocumentsComponent, PaySlipComponent],
   templateUrl: './service.component.html',
   styleUrls: ['./service.component.scss'],
 })
-export class ServiceComponent { 
+export class ServiceComponent implements OnInit { 
+  counter = 60;
+
+  constructor(
+    private router: Router
+  ) {}
+
+  ngOnInit() {
+    this.startTick();
+  }
+  
   selectedCard?: string;
-cards: Card[] = [
-  {
-    title: 'Leave Management',
-    description: 'Submit leave application',
-    iconClass: 'fa-regular fa-calendar-days',
-    iconWrapClass: 'bg-blue-600 text-white',
-  },
-  {
-    title: 'Financials',
-    description: 'Apply for loan/advance',
-    iconClass: 'fa-solid fa-dollar-sign',
-    iconWrapClass: 'bg-green-600 text-white',
-  },
-  {
-    title: 'HR Letters',
-    description: 'Download salary certificate',
-    iconClass: 'fa-regular fa-file-lines',
-    iconWrapClass: 'bg-purple-600 text-white',
-  },
-  {
-    title: 'Profile & ID',
-    description: 'Request new ID card',
-    iconClass: 'fa-regular fa-id-card',
-    iconWrapClass: 'bg-orange-600 text-white',
-  },
-];
+  cards: Card[] = [
+    {
+      title: 'Leave Management',
+      description: 'Submit leave application',
+      iconClass: 'fa-regular fa-calendar-days',
+      iconWrapClass: 'bg-blue-600 text-white',
+    },
+    {
+      title: 'Financials',
+      description: 'Apply for loan/advance',
+      iconClass: 'fa-solid fa-dollar-sign',
+      iconWrapClass: 'bg-green-600 text-white',
+    },
+    {
+      title: 'HR Letters',
+      description: 'Download salary certificate',
+      iconClass: 'fa-regular fa-file-lines',
+      iconWrapClass: 'bg-purple-600 text-white',
+    },
+    {
+      title: 'Profile & ID',
+      description: 'Request new ID card',
+      iconClass: 'fa-regular fa-id-card',
+      iconWrapClass: 'bg-orange-600 text-white',
+    },
+  ];
+
   onCardClick(card: Card) {
-    debugger
+    this.stopTick();
     this.selectedCard = card.title;
     console.log('Clicked:', card.title);
+  }
+
+  startTick() {
+    this.counter = 60;
+    const interval = setInterval(() => {
+      this.counter--;
+      if (this.counter === 0) {
+        clearInterval(interval);
+        this.router.navigate(['/login']);
+      }
+    }, 1000);
+  }
+
+  stopTick() {
+    this.counter = 0;
   }
 }

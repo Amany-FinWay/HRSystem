@@ -1,4 +1,4 @@
- <section class="bg-[transparent]">
+<section class="bg-[transparent]">
   <app-animated-bg></app-animated-bg>
   <div class="mx-auto max-w-6xl px-6 py-10">
     <h1 class="text-3xl font-semibold tracking-tight text-gray-900">
@@ -9,24 +9,17 @@
     </p>
 
     <div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-      <button
-        *ngFor="let card of cards"
-        type="button"
-        (click)="onCardClick(card)"
-        class="group w-full rounded-2xl bg-white p-6 text-left shadow-md ring-1 ring-gray-200 transition
-               hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-      >
+      <button *ngFor="let card of cards" type="button" (click)="onCardClick(card)" class="group w-full rounded-2xl bg-white p-6 text-left shadow-md ring-1 ring-gray-200 transition
+                                                                                          hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
         <div class="flex items-center justify-center">
           <div class="rounded-2xl  p-4  ">
             <!-- ICONS -->
-         <div class="flex items-center justify-center">
-  <div
-    class="flex h-14 w-14 items-center justify-center rounded-2xl shadow-sm"
-    [ngClass]="card.iconWrapClass"
-  >
-    <i class="text-2xl" [class]="card.iconClass"></i>
-  </div>
-</div>
+            <div class="flex items-center justify-center">
+              <div class="flex h-14 w-14 items-center justify-center rounded-2xl shadow-sm"
+                [ngClass]="card.iconWrapClass">
+                <i class="text-2xl" [class]="card.iconClass"></i>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -44,7 +37,13 @@
 </section>
 
 <section>
-    <ng-container *ngIf="selectedCard == 'Leave Management'">
-        <app-leave-status></app-leave-status>
-    </ng-container>
+  <ng-container *ngIf="selectedCard == 'Leave Management'">
+    <app-leave-status></app-leave-status>
+  </ng-container>
+  <ng-container *ngIf="selectedCard == 'HR Letters'">
+    <app-documents></app-documents>
+  </ng-container>
+  <ng-container *ngIf="selectedCard == 'Financials'">
+    <app-pay-slip></app-pay-slip>
+  </ng-container>
 </section>

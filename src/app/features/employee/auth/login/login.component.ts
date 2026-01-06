@@ -90,7 +90,7 @@ export class LoginComponent {
         role: 'employee',
         name: 'John Doe'
       });
-      this.router.navigate(['/employee/services']);
+      this.router.navigate(['/employee/service']);
     }, 2000);
   }
 }
