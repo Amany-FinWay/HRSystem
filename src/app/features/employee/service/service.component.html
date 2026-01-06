@@ -1,5 +1,4 @@
-<p>service works!</p>
-
+<!-- <h1 class="fa-bold">Employee Self-Service</h1>
 
 
 <div class="bg-neutral-primary-soft block max-w-sm p-6 border border-default rounded-base shadow-xs">
@@ -13,3 +12,76 @@
         <svg class="w-4 h-4 ms-2 rtl:rotate-[270deg]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 14v4.833A1.166 1.166 0 0 1 16.833 20H5.167A1.167 1.167 0 0 1 4 18.833V7.167A1.166 1.166 0 0 1 5.167 6h4.618m4.447-2H20v5.768m-7.889 2.121 7.778-7.778"/></svg>
     </a>
 </div>
+<button
+  data-modal-target="testModal"
+  data-modal-toggle="testModal"
+  class="block text-white bg-blue-700 hover:bg-blue-800 
+         focus:ring-4 focus:outline-none focus:ring-blue-300 
+         font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+  Open Modal
+</button>
+
+<div id="testModal" tabindex="-1"
+     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 
+            justify-center items-center w-full md:inset-0 h-modal md:h-full">
+  <div class="relative p-4 w-full max-w-md h-full md:h-auto">
+    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+      <div class="p-6 text-center">
+        <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+          Flowbite is working 🎉
+        </h3>
+        <button data-modal-hide="testModal"
+                class="text-white bg-blue-600 px-4 py-2 rounded">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+ -->
+
+
+ <section class="bg-white">
+  <div class="mx-auto max-w-6xl px-6 py-10">
+    <h1 class="text-3xl font-semibold tracking-tight text-gray-900">
+      Employee Self-Service
+    </h1>
+    <p class="mt-2 text-base text-gray-500">
+      Access your personal information and submit requests.
+    </p>
+
+    <div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <button
+        *ngFor="let card of cards"
+        type="button"
+        (click)="onCardClick(card)"
+        class="group w-full rounded-2xl bg-white p-6 text-left shadow-md ring-1 ring-gray-200 transition
+               hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        <div class="flex items-center justify-center">
+          <div class="rounded-2xl  p-4  ">
+            <!-- ICONS -->
+         <div class="flex items-center justify-center">
+  <div
+    class="flex h-14 w-14 items-center justify-center rounded-2xl shadow-sm"
+    [ngClass]="card.iconWrapClass"
+  >
+    <i class="text-2xl" [class]="card.iconClass"></i>
+  </div>
+</div>
+          </div>
+        </div>
+
+        <div class="mt-5 text-center">
+          <h3 class="text-lg font-semibold text-gray-900">
+            {{ card.title }}
+          </h3>
+          <p class="mt-1 text-sm text-gray-500">
+            {{ card.description }}
+          </p>
+        </div>
+      </button>
+    </div>
+  </div>
+</section>
