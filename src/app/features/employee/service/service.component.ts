@@ -6,13 +6,7 @@ import { DocumentsComponent } from './avalible-services/documents/documents.comp
 import { PaySlipComponent } from "../pay-slip/pay-slip/pay-slip.component";
 import { Router } from '@angular/router';
 import { ProfileComponent } from "./avalible-services/profile-id/profile/profile.component";
-
-type Card = {
-  title: string;
-  description: string;
-  iconClass: string;        // FontAwesome class
-  iconWrapClass: string;    // background + text + sizing
-};
+import { Card } from '../../../shared/models/types/Card.type';
 
 @Component({
   selector: 'app-service',
@@ -63,7 +57,6 @@ export class ServiceComponent implements OnInit {
   onCardClick(card: Card) {
     this.stopTick();
     this.selectedCard = card.title;
-    console.log('Clicked:', card.title);
   }
 
   startTick() {

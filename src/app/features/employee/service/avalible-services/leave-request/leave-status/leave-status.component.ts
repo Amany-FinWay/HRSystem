@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LeaveRequestComponent } from "../leave-request/leave-request.component";
+import { LeaveRequestComponent } from '../leave-request/leave-request.component';
 
 type BalanceCard = {
   title: string;
@@ -26,7 +26,7 @@ type LeaveRow = {
   styleUrls: ['./leave-status.component.scss'],
 })
 export class LeaveStatusComponent {
-showLeaveModal = false;
+  showLeaveModal = false;
 
   balanceCards: BalanceCard[] = [
     {
@@ -89,29 +89,25 @@ showLeaveModal = false;
     }
   }
 
-
   openRequestLeave() {
-  this.showLeaveModal = true;
-    console.log('Request Leave clicked');
-}
+    this.showLeaveModal = true;
+  }
 
-closeLeaveModal() {
-  this.showLeaveModal = false;
-}
+  closeLeaveModal() {
+    this.showLeaveModal = false;
+  }
 
-handleSubmit(form: any) {
-  console.log('Leave submitted (demo):', form);
-
-  this.leaveRows = [
-    {
-      type: form.leaveType,
-      startDate: form.startDate,
-      endDate: form.endDate,
-      days: 1, // dummy
-      status: 'pending',
-      reason: form.reason || '-',
-    },
-    ...this.leaveRows,
-  ];
-}
+  handleSubmit(form: any) {
+    this.leaveRows = [
+      {
+        type: form.leaveType,
+        startDate: form.startDate,
+        endDate: form.endDate,
+        days: 1, // dummy
+        status: 'pending',
+        reason: form.reason || '-',
+      },
+      ...this.leaveRows,
+    ];
+  }
 }
