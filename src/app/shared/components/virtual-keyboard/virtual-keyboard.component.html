@@ -1,0 +1,23 @@
+<div class="virtual-keyboard bg-gray-200 p-2 rounded-lg select-none">
+<div *ngFor="let row of keys" class="flex justify-center mb-2">
+  <button
+    *ngFor="let key of row"
+    (mousedown)="$event.preventDefault()"
+    (click)="pressKey(key)"
+    class="m-1 w-10 h-10 rounded bg-white shadow hover:bg-gray-100 transition font-bold"
+  >
+    {{ key }}
+  </button>
+</div>
+
+<div class="flex justify-center mt-2 space-x-2">
+  <button (mousedown)="$event.preventDefault()" (click)="pressBackspace()" class="w-20 h-10 rounded bg-red-500 text-white font-bold hover:bg-red-600 transition">⌫</button>
+  <button (mousedown)="$event.preventDefault()" (click)="pressClear()" class="w-20 h-10 rounded bg-blue-500 text-white font-bold hover:bg-blue-600 transition">Clear</button>
+  <button (mousedown)="$event.preventDefault()" (click)="pressSpace()" class="w-20 h-10 rounded bg-gray-500 text-white font-bold hover:bg-gray-600 transition">Space</button>
+</div>
+
+
+
+
+
+</div>
