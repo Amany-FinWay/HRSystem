@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AnimatedBgComponent } from "../../../shared/components/animated-bg/animated-bg.component";
 import { LeaveStatusComponent } from "./avalible-services/leave-request/leave-status/leave-status.component";
 import { DocumentsComponent } from './avalible-services/documents/documents.component';
-import { PaySlipComponent } from "../pay-slip/pay-slip/pay-slip.component";
+import { PaySlipComponent } from "./avalible-services/pay-slip/pay-slip.component";
 import { Router } from '@angular/router';
 import { ProfileComponent } from "./avalible-services/profile-id/profile/profile.component";
 import { Card } from '../../../shared/models/types/Card.type';

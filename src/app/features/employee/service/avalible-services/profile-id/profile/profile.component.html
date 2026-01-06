@@ -15,11 +15,8 @@
       <!-- Left: Profile Card -->
       <div class="lg:col-span-1 rounded-2xl border border-gray-200 bg-white p-6">
         <div class="flex items-center gap-4">
-          <img
-            [src]="employee.avatarUrl"
-            alt="Employee avatar"
-            class="h-16 w-16 rounded-2xl object-cover ring-1 ring-gray-200"
-          />
+          <img [src]="employee.avatarUrl" alt="Employee avatar"
+            class="h-16 w-16 rounded-2xl object-cover ring-1 ring-gray-200" />
 
           <div class="min-w-0">
             <p class="truncate text-lg font-semibold text-gray-900">{{ employee.name }}</p>
@@ -63,73 +60,62 @@
           <!-- Current PIN -->
           <div>
             <label class="mb-2 block text-sm font-medium text-gray-900">Current PIN</label>
-            <input
-              type="password"
-              inputmode="numeric"
-              maxlength="6"
-              [(ngModel)]="pinForm.currentPin"
-              class="h-10 w-full rounded-lg border border-gray-200 bg-gray-50 px-3 text-sm text-gray-900
-                     focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-              placeholder="Enter current PIN"
-            />
+            <input type="password" readonly maxlength="4" [value]="pinForm.currentPin"
+              (focus)="showKeyboardCurrent = true" (blur)="hideKeyboardDelayed('current')" class="h-10 w-full rounded-lg border border-gray-200 bg-gray-50 px-3 text-sm text-gray-900
+             focus:border-blue-500 focus:ring-2 focus:ring-blue-200" placeholder="Enter current PIN" />
+            <div *ngIf="showKeyboardCurrent" class="mt-2">
+              <app-virtual-keyboard mode="numbers" (keyPress)="appendKey('currentPin', $event)"
+                (backspace)="backspace('currentPin')" (clear)="clearInput('currentPin')"></app-virtual-keyboard>
+            </div>
           </div>
 
           <!-- New PIN -->
           <div>
             <label class="mb-2 block text-sm font-medium text-gray-900">New PIN</label>
-            <input
-              type="password"
-              inputmode="numeric"
-              maxlength="6"
-              [(ngModel)]="pinForm.newPin"
-              class="h-10 w-full rounded-lg border border-gray-200 bg-gray-50 px-3 text-sm text-gray-900
-                     focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-              placeholder="Enter new PIN"
-            />
+            <input type="password" readonly maxlength="4" [value]="pinForm.newPin" (focus)="showKeyboardNew = true"
+              (blur)="hideKeyboardDelayed('new')" class="h-10 w-full rounded-lg border border-gray-200 bg-gray-50 px-3 text-sm text-gray-900
+             focus:border-blue-500 focus:ring-2 focus:ring-blue-200" placeholder="Enter new PIN" />
+            <div *ngIf="showKeyboardNew" class="mt-2">
+              <app-virtual-keyboard mode="numbers" (keyPress)="appendKey('newPin', $event)"
+                (backspace)="backspace('newPin')" (clear)="clearInput('newPin')"></app-virtual-keyboard>
+            </div>
           </div>
 
           <!-- Confirm PIN -->
           <div class="sm:col-span-2">
             <label class="mb-2 block text-sm font-medium text-gray-900">Confirm New PIN</label>
-            <input
-              type="password"
-              inputmode="numeric"
-              maxlength="6"
-              [(ngModel)]="pinForm.confirmPin"
-              class="h-10 w-full rounded-lg border border-gray-200 bg-gray-50 px-3 text-sm text-gray-900
-                     focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-              placeholder="Confirm new PIN"
-            />
+            <input type="password" readonly maxlength="4" [value]="pinForm.confirmPin"
+              (focus)="showKeyboardConfirm = true" (blur)="hideKeyboardDelayed('confirm')" class="h-10 w-full rounded-lg border border-gray-200 bg-gray-50 px-3 text-sm text-gray-900
+             focus:border-blue-500 focus:ring-2 focus:ring-blue-200" placeholder="Confirm new PIN" />
+            <div *ngIf="showKeyboardConfirm" class="mt-2">
+              <app-virtual-keyboard mode="numbers" (keyPress)="appendKey('confirmPin', $event)"
+                (backspace)="backspace('confirmPin')" (clear)="clearInput('confirmPin')"></app-virtual-keyboard>
+            </div>
           </div>
         </div>
 
+
+
         <div class="mt-6 flex items-center justify-end gap-3">
-          <button
-            type="button"
+          <button type="button"
             class="rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-50"
-            (click)="pinForm = { currentPin: '', newPin: '', confirmPin: '' }"
-          >
+            (click)="pinForm = { currentPin: '', newPin: '', confirmPin: '' }">
             Cancel
           </button>
-            <!-- Error -->
-            <div
-            *ngIf="pinError"
-            class="mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700
-                    transition-opacity duration-300"
-            >
+          <!-- Error -->
+          <div *ngIf="pinError" class="mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700
+                    transition-opacity duration-300">
             {{ pinError }}
-            </div>
+          </div>
 
-            <!-- Success -->
-            <div *ngIf="pinSuccess" class="mt-4 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
+          <!-- Success -->
+          <div *ngIf="pinSuccess"
+            class="mt-4 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
             {{ pinSuccess }}
-            </div>
-          <button
-            type="button"
-            class="rounded-full bg-blue-700 px-5 py-2.5 text-sm font-semibold text-white
+          </div>
+          <button type="button" class="rounded-full bg-blue-700 px-5 py-2.5 text-sm font-semibold text-white
                    shadow-sm hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-300"
-            (click)="savePin()"
-          >
+            (click)="savePin()">
             Save
           </button>
         </div>

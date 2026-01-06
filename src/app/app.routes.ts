@@ -8,7 +8,7 @@ import { AuthGuard } from './core/guards/auth.guard';
 import { LoginComponent } from './features/employee/auth/login/login.component';
 import { LeaveRequestComponent } from './features/employee/service/avalible-services/leave-request/leave-request/leave-request.component';
 import { LeaveStatusComponent } from './features/employee/service/avalible-services/leave-request/leave-status/leave-status.component';
-import { PaySlipComponent } from './features/employee/pay-slip/pay-slip/pay-slip.component';
+import { PaySlipComponent } from './features/employee/service/avalible-services/pay-slip/pay-slip.component';
 import { DashboardComponent } from './features/manager/dashboard/dashboard.component';
 import { LeaveApprovalComponent } from './features/manager/leave-approval/leave-approval.component';
 import { ServiceComponent } from './features/employee/service/service.component';
