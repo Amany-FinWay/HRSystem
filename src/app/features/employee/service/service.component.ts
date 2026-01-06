@@ -1,16 +1,3 @@
-// import { Component } from '@angular/core';
-
-// @Component({
-//   selector: 'app-service',
-//   imports: [],
-//   templateUrl: './service.component.html',
-//   styleUrl: './service.component.scss'
-// })
-// export class ServiceComponent {
-
-// }
-
-
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AnimatedBgComponent } from "../../../shared/components/animated-bg/animated-bg.component";
