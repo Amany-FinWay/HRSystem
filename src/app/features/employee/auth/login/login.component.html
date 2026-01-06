@@ -1,7 +1,25 @@
-<div class="flex items-center justify-center min-h-screen bg-gradient-to-b from-blue-50 to-blue-100 p-4">
-  <div class="bg-white rounded-2xl shadow-xl w-full max-w-sm p-8">
+<div class="relative min-h-screen flex items-center justify-center overflow-hidden bg-blue-50">
 
-    <!-- Header -->
+  <!-- Animated Wavy Background -->
+  <div class="absolute inset-0">
+    <svg class="w-full h-full" viewBox="0 0 1440 320" preserveAspectRatio="none">
+      <path fill="#3b82f6" fill-opacity="0.3">
+        <animate 
+          attributeName="d" 
+          dur="10s" 
+          repeatCount="indefinite"
+          values="
+            M0,64L48,69.3C96,75,192,85,288,117.3C384,149,480,203,576,229.3C672,256,768,256,864,245.3C960,235,1056,213,1152,192C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z;
+            M0,96L48,101.3C96,107,192,117,288,138.7C384,160,480,192,576,213.3C672,235,768,245,864,245.3C960,245,1056,235,1152,213.3C1248,192,1344,160,1392,144L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z;
+            M0,64L48,69.3C96,75,192,85,288,117.3C384,149,480,203,576,229.3C672,256,768,256,864,245.3C960,235,1056,213,1152,192C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z
+          ">
+        </animate>
+      </path>
+    </svg>
+  </div>
+
+  <!-- Login Card -->
+  <div class="relative bg-white rounded-2xl shadow-xl w-full max-w-sm p-8 z-10">
     <div class="text-center mb-6">
       <h1 class="text-3xl font-extrabold text-gray-800">HR Demo App</h1>
       <p class="text-gray-500 mt-1 text-sm">Employee Login</p>
@@ -74,23 +92,22 @@
       Login with Biometric
     </button>
 
-    <!-- Footer -->
     <p class="text-center text-gray-400 text-sm mt-4">Demo version only</p>
   </div>
-</div>
 
-<!-- ================= Biometric Overlay ================= -->
-<div 
-  *ngIf="showBiometricMessage"
-  class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
->
-  <div class="bg-white p-8 rounded-2xl shadow-xl flex flex-col items-center">
-    <svg class="w-16 h-16 mb-4 text-blue-500 animate-bounce" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11 11-4.925 11-11S18.075 1 12 1zm0 20c-4.963 0-9-4.037-9-9s4.037-9 9-9 9 4.037 9 9-4.037 9-9 9z"/>
-      <path d="M12 6a6 6 0 100 12 6 6 0 000-12zm0 10a4 4 0 110-8 4 4 0 010 8z"/>
-    </svg>
-    <p class="text-gray-700 text-lg font-semibold text-center">
-      Place your finger on the fingerprint scanner
-    </p>
+  <!-- Biometric Overlay -->
+  <div 
+    *ngIf="showBiometricMessage"
+    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+  >
+    <div class="bg-white p-8 rounded-2xl shadow-xl flex flex-col items-center">
+      <svg class="w-16 h-16 mb-4 text-blue-500 animate-bounce" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11 11-4.925 11-11S18.075 1 12 1zm0 20c-4.963 0-9-4.037-9-9s4.037-9 9-9 9 4.037 9 9-4.037 9-9 9z"/>
+        <path d="M12 6a6 6 0 100 12 6 6 0 000-12zm0 10a4 4 0 110-8 4 4 0 010 8z"/>
+      </svg>
+      <p class="text-gray-700 text-lg font-semibold text-center">
+        Place your finger on the fingerprint scanner
+      </p>
+    </div>
   </div>
 </div>

@@ -6,6 +6,7 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app/app.routes';
 import { provideToastr } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
+import 'flowbite';
 
 bootstrapApplication(AppComponent, {
   providers: [
