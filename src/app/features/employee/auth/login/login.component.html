@@ -23,7 +23,7 @@
       <div *ngIf="keyboardVisibleEmployeeId"
         class="mt-4 p-4 bg-gray-50 dark:bg-slate-900 rounded-3xl border border-gray-100 dark:border-slate-700 shadow-inner animate-in fade-in slide-in-from-top-2 duration-300">
         <app-virtual-keyboard mode="all" (keyPress)="appendEmployeeId($event)" (backspace)="backspaceEmployeeId()"
-          (clear)="clearEmployeeId()" (space)="appendEmployeeIdSpace()"></app-virtual-keyboard>
+          (clear)="clearEmployeeId()"></app-virtual-keyboard>
       </div>
     </div>
 
@@ -39,7 +39,7 @@
       <div *ngIf="keyboardVisiblePin"
         class="mt-4 p-4 bg-gray-50 dark:bg-slate-900 rounded-3xl border border-gray-100 dark:border-slate-700 shadow-inner animate-in fade-in slide-in-from-top-2 duration-300">
         <app-virtual-keyboard mode="numbers" (keyPress)="appendPin($event)" (backspace)="backspacePin()"
-          (clear)="clearPin()" (space)="appendPinSpace()"></app-virtual-keyboard>
+          (clear)="clearPin()"></app-virtual-keyboard>
       </div>
     </div>
 
