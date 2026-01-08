@@ -1,6 +1,6 @@
 <div class="p-6 max-w-4xl mx-auto transition-colors duration-500 relative z-10">
     <div class="flex items-center mb-8">
-        <h1 class="text-2xl font-black text-gray-800 dark:text-white ml-2 tracking-tight">Financial Details</h1>
+        <h1 class="text-2xl font-black text-gray-800 dark:text-white ml-2 tracking-tight"> {{ 'pay_slip.title' | translate }} </h1>
     </div>
 
     <div
@@ -14,21 +14,24 @@
                 </svg>
             </div>
             <div>
-                <h2 class="text-lg font-bold text-gray-800 dark:text-white">Bank Account Details</h2>
-                <p class="text-xs text-gray-400 dark:text-slate-500 uppercase font-black tracking-widest">Payroll
-                    Information</p>
+                <h2 class="text-lg font-bold text-gray-800 dark:text-white"> {{ 'pay_slip.bank_section.title' | translate }}</h2>
+                <p class="text-xs text-gray-400 dark:text-slate-500 uppercase font-black tracking-widest">
+                    {{ 'pay_slip.bank_section.subtitle' | translate }} 
+                </p>
             </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div class="bg-gray-50 dark:bg-slate-900/50 p-4 rounded-2xl border border-gray-50 dark:border-slate-700">
-                <p class="text-[10px] font-black uppercase text-gray-400 dark:text-slate-500 mb-1 tracking-widest">Bank
-                    Name</p>
+                <p class="text-[10px] font-black uppercase text-gray-400 dark:text-slate-500 mb-1 tracking-widest">
+                     {{ 'pay_slip.bank_section.bank_name' | translate }} 
+                </p>
                 <p class="font-bold text-gray-800 dark:text-slate-200">{{ bankInfo().bankName }}</p>
             </div>
             <div class="bg-gray-50 dark:bg-slate-900/50 p-4 rounded-2xl border border-gray-50 dark:border-slate-700">
                 <p class="text-[10px] font-black uppercase text-gray-400 dark:text-slate-500 mb-1 tracking-widest">
-                    Account Number</p>
+                    {{ 'pay_slip.bank_section.account_number' | translate }}     
+                </p>
                 <p class="font-mono font-bold text-gray-800 dark:text-slate-200 tracking-wider">{{
                     bankInfo().accountNumber }}</p>
             </div>
@@ -38,7 +41,9 @@
     <div
         class="bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 rounded-[2rem] p-8 shadow-sm dark:shadow-none transition-all">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
-            <h2 class="text-xl font-black text-gray-800 dark:text-white tracking-tight">Monthly Pay-slip</h2>
+            <h2 class="text-xl font-black text-gray-800 dark:text-white tracking-tight"> 
+                 {{ 'pay_slip.monthly.title' | translate }}
+            </h2>
 
             <div class="flex flex-wrap gap-3">
                 <div class="min-w-[120px]">
@@ -54,7 +59,9 @@
                     <select [(ngModel)]="selectedMonth" (change)="onFilterChange()"
                         class="bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 text-gray-900 dark:text-white text-xs font-bold rounded-xl focus:ring-2 focus:ring-blue-500 block w-full p-3 outline-none transition-all">
                         @for (month of months; track month) {
-                        <option [value]="month">{{month}}</option>
+                        <option [value]="month">
+                            {{ ('months.' + month) | translate }}
+                        </option>
                         }
                     </select>
                 </div>
@@ -68,7 +75,7 @@
                 <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
             </span>
             <p class="text-xs text-gray-400 dark:text-slate-500 font-bold italic uppercase tracking-tighter">
-                Period: {{selectedMonth()}} {{selectedYear()}}
+                {{ 'pay_slip.monthly.period' | translate }}:  {{selectedMonth()}} {{selectedYear()}}
             </p>
         </div>
 
@@ -77,28 +84,35 @@
                 <thead
                     class="text-[10px] font-black uppercase text-gray-400 dark:text-slate-500 bg-gray-50 dark:bg-slate-900/80 border-b border-gray-100 dark:border-slate-700 tracking-widest">
                     <tr>
-                        <th class="px-6 py-4">Description</th>
-                        <th class="px-6 py-4 text-right">Amount (EGP)</th>
+                        <th class="px-6 py-4">{{ 'pay_slip.monthly.description' | translate }}</th>
+                        <th class="px-6 py-4 text-right">{{ 'pay_slip.monthly.amount' | translate }}</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-50 dark:divide-slate-700 transition-colors">
                     <tr class="hover:bg-gray-50/50 dark:hover:bg-slate-700/20 transition-colors">
-                        <td class="px-6 py-5 font-semibold text-gray-700 dark:text-slate-300">Basic Salary</td>
+                        <td class="px-6 py-5 font-semibold text-gray-700 dark:text-slate-300">
+                            {{ 'pay_slip.monthly.basic' | translate }}
+                        </td>
                         <td class="px-6 py-5 text-right font-bold text-gray-900 dark:text-white">{{
                             payslipDetails().basic }}</td>
                     </tr>
                     <tr class="hover:bg-gray-50/50 dark:hover:bg-slate-700/20 transition-colors">
-                        <td class="px-6 py-5 text-gray-600 dark:text-slate-400">Allowances (بدلات)</td>
+                        <td class="px-6 py-5 text-gray-600 dark:text-slate-400">
+                            {{ 'pay_slip.monthly.allowances' | translate }}
+                        </td>
                         <td class="px-6 py-5 text-right font-black text-emerald-600 dark:text-emerald-400">+{{
                             payslipDetails().allowances }}</td>
                     </tr>
                     <tr class="hover:bg-gray-50/50 dark:hover:bg-slate-700/20 transition-colors">
-                        <td class="px-6 py-5 text-gray-600 dark:text-slate-400">Deductions (استقطاعات)</td>
+                        <td class="px-6 py-5 text-gray-600 dark:text-slate-400">
+                            {{ 'pay_slip.monthly.deductions' | translate }}
+                        </td>
                         <td class="px-6 py-5 text-right font-black text-red-600 dark:text-red-400">-{{
                             payslipDetails().deductions }}</td>
                     </tr>
                     <tr class="bg-blue-50/50 dark:bg-blue-900/20">
-                        <td class="px-6 py-6 font-black text-blue-800 dark:text-blue-300 text-base">Net Salary (الصافي)
+                        <td class="px-6 py-6 font-black text-blue-800 dark:text-blue-300 text-base">
+                            {{ 'pay_slip.monthly.net' | translate }}
                         </td>
                         <td
                             class="px-6 py-6 text-right font-black text-blue-800 dark:text-blue-300 text-xl tracking-tighter">

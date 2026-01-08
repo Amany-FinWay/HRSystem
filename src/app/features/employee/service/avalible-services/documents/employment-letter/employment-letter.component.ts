@@ -9,10 +9,11 @@ import { CommonModule } from '@angular/common';
 import { VirtualKeyboardComponent } from '../../../../../../shared/components/virtual-keyboard/virtual-keyboard.component';
 import { AuthService } from '../../../../../../core/services/auth.service';
 import { UserRole } from '../../../../../../shared/models/types/UserRole.type';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-employment-letter',
-  imports: [CommonModule, VirtualKeyboardComponent],
+  imports: [CommonModule, VirtualKeyboardComponent,TranslateModule],
   templateUrl: './employment-letter.component.html',
   styleUrl: './employment-letter.component.scss',
 })

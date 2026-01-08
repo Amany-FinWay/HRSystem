@@ -8,6 +8,7 @@ import { RequestsStatus } from '../../../../../shared/models/types/RequestsStatu
 import { Language } from '../../../../../shared/models/types/Language.type';
 import { AuthService } from '../../../../../core/services/auth.service';
 import { UserRole } from '../../../../../shared/models/types/UserRole.type';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-documents',
@@ -16,6 +17,7 @@ import { UserRole } from '../../../../../shared/models/types/UserRole.type';
     CommonModule,
     SalaryCertificateComponent,
     EmploymentLetterComponent,
+    TranslateModule
   ],
   templateUrl: 'documents.component.html',
 })
@@ -113,4 +115,31 @@ export class DocumentsComponent implements OnInit {
   closeExperienceModal() {
     this.showExperienceModal = false;
   }
+
+  getTypeKey(type: any): string {
+  if (type === 'salary' || type === 'experience') return type;
+
+  const t = String(type).toLowerCase();
+  if (t.includes('salary')) return 'salary';
+  if (t.includes('experience')) return 'experience';
+
+  // fallback
+  return 'salary';
+}
+
+getStatusKey(status: any): string {
+  const s = String(status).toLowerCase();
+  if (s.includes('approved')) return 'approved';
+  if (s.includes('pending')) return 'pending';
+  if (s.includes('rejected')) return 'rejected';
+  return 'pending';
+}
+
+getLangKey(lang: any): string {
+  const l = String(lang).toLowerCase();
+  if (l.includes('english') || l === 'en') return 'english';
+  if (l.includes('arabic') || l === 'ar') return 'arabic';
+  return 'english';
+}
+
 }

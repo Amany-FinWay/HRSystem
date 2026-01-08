@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { SpinnerToasterService } from '../../../core/services/spinner-toaster.service';
 import { CommonModule, AsyncPipe } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-spinner',
   standalone: true,
-  imports: [CommonModule, AsyncPipe],
+  imports: [CommonModule, AsyncPipe,TranslateModule],
   template: `
           <div 
             *ngIf="spinnerToasterService.spinner$ | async" 
@@ -22,7 +23,9 @@ import { CommonModule, AsyncPipe } from '@angular/common';
               </div>
 
               <div class="mt-6 flex flex-col items-center gap-1">
-                <span class="text-xs font-black uppercase tracking-[0.3em] text-white">Please Wait</span>
+                <span class="text-xs font-black uppercase tracking-[0.3em] text-white">
+                  {{'spinner.PleaseWait' | translate}}
+                </span>
                 <div class="flex gap-1">
                   <span class="h-1.5 w-1.5 rounded-full bg-blue-500 animate-bounce"></span>
                   <span class="h-1.5 w-1.5 rounded-full bg-blue-500 animate-bounce [animation-delay:0.2s]"></span>

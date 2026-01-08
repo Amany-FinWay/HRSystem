@@ -8,19 +8,22 @@ import { Router } from '@angular/router';
 import { ProfileComponent } from "./avalible-services/profile-id/profile/profile.component";
 import { Card } from '../../../shared/models/interfaces/Card.model';
 import { AuthService } from '../../../core/services/auth.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-service',
   standalone: true,
-  imports: [CommonModule, AnimatedBgComponent, LeaveStatusComponent, DocumentsComponent, PaySlipComponent, ProfileComponent],
+  imports: [CommonModule, AnimatedBgComponent, LeaveStatusComponent, DocumentsComponent, PaySlipComponent, ProfileComponent,TranslateModule],
   templateUrl: './service.component.html',
   styleUrls: ['./service.component.scss'],
 })
 export class ServiceComponent implements OnInit { 
   showGreeting = signal(false);
   userName!: string;
-  greetingText = signal('');
-  
+   greetingText = signal<'service.greeting_morning' | 'service.greeting_afternoon' | 'service.greeting_evening'>(
+    'service.greeting_morning'
+  );
+
   constructor(
     private router: Router,
     private authService: AuthService
@@ -38,37 +41,38 @@ export class ServiceComponent implements OnInit {
   setGreetingByTime() {
     const hour = new Date().getHours();
     if (hour < 12) {
-      this.greetingText.set('Good Morning');
+      this.greetingText.set('service.greeting_morning');
     } else if (hour < 18) {
-      this.greetingText.set('Good Afternoon');
+      this.greetingText.set('service.greeting_afternoon');
     } else {
-      this.greetingText.set('Good Evening');
+      this.greetingText.set('service.greeting_evening');
     }
   }
-  
+
   selectedCard?: string;
+
   cards: Card[] = [
     {
-      title: 'Leave Management',
-      description: 'Submit leave application',
+      title: 'cards.leave.title',
+      description: 'cards.leave.desc',
       iconClass: 'fa-regular fa-calendar-days',
       iconWrapClass: 'bg-blue-600 text-white',
     },
     {
-      title: 'Financials',
-      description: 'Apply for loan/advance',
+      title: 'cards.payslip.title',
+      description: 'cards.payslip.desc',
       iconClass: 'fa-solid fa-dollar-sign',
       iconWrapClass: 'bg-green-600 text-white',
     },
     {
-      title: 'HR Letters',
-      description: 'Download salary certificate',
+      title: 'cards.hr.title',
+      description: 'cards.hr.desc',
       iconClass: 'fa-regular fa-file-lines',
       iconWrapClass: 'bg-purple-600 text-white',
     },
     {
-      title: 'Profile & ID',
-      description: 'Request new ID card',
+      title: 'cards.profile.title',
+      description: 'cards.profile.desc',
       iconClass: 'fa-regular fa-id-card',
       iconWrapClass: 'bg-orange-600 text-white',
     },

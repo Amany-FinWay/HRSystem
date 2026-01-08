@@ -1,0 +1,229 @@
+{
+  "header": {
+    "title": "HR Demo App",
+    "light": "☀️ Light",
+    "dark": "🌙 Dark"
+  },
+   "login": {
+    "app_title": "HR Demo App",
+    "subtitle": "Employee Login",
+    "employee_id_label": "Employee ID",
+    "employee_id_placeholder": "Enter your ID",
+    "pin_label": "Security PIN",
+    "pin_placeholder": "••••",
+    "login_btn": "Login",
+    "or": "OR",
+    "biometric_btn": "Login with Biometric",
+    "demo_only": "Demo version only",
+    "bio_modal_title": "Place your finger on the scanner",
+    "bio_modal_subtitle": "Authenticating..."
+  },
+  "service": {
+    "title": "Employee Self-Service",
+    "subtitle": "Access your personal information and submit requests.",
+    "greeting_note": "Have a productive day at work.",
+    "greeting_morning": "Good Morning",
+    "greeting_afternoon": "Good Afternoon",
+    "greeting_evening": "Good Evening"
+  },
+  "cards": {
+    "leave": {
+      "title": "Leave Management",
+      "desc": "Submit leave application"
+    },
+    "hr": {
+      "title": "HR Letters",
+      "desc": "Request HR letters"
+    },
+    "payslip": {
+      "title": "Financials",
+      "desc": "View pay slip"
+    },
+    "profile": {
+      "title": "Profile & ID",
+      "desc": "View profile and change PIN"
+    }
+  },
+  "leave_request": {
+    "title": "Submit Leave Request",
+    "leave_type": "Leave Type",
+    "select_leave_type": "Select leave type",
+    "start_date": "Start Date",
+    "end_date": "End Date",
+    "reason": "Reason / Comments",
+    "reason_placeholder": "Optional: provide more context...",
+    "cancel": "Cancel",
+    "submit": "Submit Request",
+
+    "types": {
+      "annual": "Annual Leave",
+      "sick": "Sick Leave",
+      "personal": "Personal Leave",
+      "maternity": "Maternity Leave",
+      "paternity": "Paternity Leave",
+      "unpaid": "Unpaid Leave",
+      "emergency": "Emergency Leave",
+      "compassionate": "Compassionate Leave",
+      "study": "Study Leave"
+    }
+  },
+  "leave_status": {
+    "title": "Leave Management",
+    "subtitle": "Track your balances and history",
+    "new_request": "New Request",
+
+    "cards": {
+      "annual": "Annual Leave",
+      "sick": "Sick Leave",
+      "personal": "Personal Leave"
+    },
+
+    "days": "Days",
+
+    "table": {
+      "leave_type": "Leave Type",
+      "duration": "Duration",
+      "days": "Days",
+      "status": "Status",
+      "reason": "Reason",
+      "to": "To",
+      "no_reason": "No reason provided"
+    },
+
+    "status": {
+      "approved": "Approved",
+      "pending": "Pending",
+      "rejected": "Rejected"
+    }
+  },
+  "pay_slip": {
+    "title": "Financial Details",
+    "bank_section": {
+      "title": "Bank Account Details",
+      "subtitle": "Payroll Information",
+      "bank_name": "Bank Name",
+      "account_number": "Account Number"
+    },
+    "monthly": {
+      "title": "Monthly Pay-slip",
+      "period": "Period",
+      "description": "Description",
+      "amount": "Amount (EGP)",
+      "basic": "Basic Salary",
+      "allowances": "Allowances",
+      "deductions": "Deductions",
+      "net": "Net Salary"
+    }
+  },
+  "months": {
+    "January": "January",
+    "February": "February",
+    "March": "March",
+    "April": "April"
+  },
+  "profile": {
+    "title": "My Profile",
+    "subtitle": "View your information and manage your PIN",
+    "employee_id": "Employee ID",
+    "department": "Department",
+    "hire_date": "Hire Date",
+    "manager": "Direct Manager",
+
+    "change_pin": {
+      "title": "Change Security PIN",
+      "subtitle": "Enter your current PIN then set a new one",
+      "current": "Current PIN",
+      "new": "New PIN",
+      "confirm": "Confirm New PIN",
+      "cancel": "Cancel",
+      "save": "Save Changes"
+    },
+
+    "messages": {
+      "fill_all": "Please fill all PIN fields.",
+      "not_match": "New PIN and Confirm PIN do not match.",
+      "invalid": "PIN must be 4 digits."
+    }
+  },
+  "documents": {
+    "title": "Document Requests",
+    "salary": {
+      "title": "Salary Definition Letter",
+      "desc": "Official salary certificate for bank or visa applications",
+      "button": "Request Letter"
+    },
+    "experience": {
+      "title": "Experience Certificate",
+      "desc": "Employment experience and service certificate",
+      "button": "Request Certificate"
+    },
+
+    "history": {
+      "title": "My Requests History",
+      "letter_details": "Letter Details",
+      "request_date": "Request Date",
+      "status": "Status",
+      "action": "Action",
+      "directed_to": "Directed to",
+      "download": "Download",
+      "closed": "Closed",
+      "reviewing": "Reviewing...",
+      "empty": "No requests submitted yet."
+    },
+
+    "status": {
+      "approved": "Approved",
+      "pending": "Pending",
+      "rejected": "Rejected"
+    },
+
+    "type": {
+      "salary": "Salary Letter",
+      "experience": "Experience Certificate"
+    },
+
+    "language": {
+      "english": "English",
+      "arabic": "Arabic"
+    }
+  },
+  "employment_letter": {
+    "title": "Experience Certificate",
+    "subtitle": "Please fill in the details for your official certificate.",
+    "select_language_label": "Select Language",
+    "select_language_placeholder": "Select Language",
+    "languages": {
+      "English": "English",
+      "Arabic": "Arabic"
+    },
+    "directed_to_label": "Directed To",
+    "directed_to_placeholder": "e.g. Banque Misr, Embassy of France",
+    "cancel": "Cancel",
+    "submit": "Submit Request",
+    "toaster": {
+      "directed_to_required": "Please enter who this letter is directed to",
+      "submitted_success": "Your request has been submitted successfully."
+    }
+  },
+   "salary_certificate": {
+    "title": "Salary Certificate",
+    "subtitle": "Generate an official letter with your financial details.",
+    "select_language_label": "Select Language",
+    "select_language_placeholder": "Select Language",
+    "languages": {
+      "English": "English",
+      "Arabic": "Arabic"
+    },
+    "directed_to_label": "Directed To",
+    "directed_to_placeholder": "e.g. Commercial International Bank (CIB)",
+    "cancel": "Cancel",
+    "submit": "Submit Request",
+    "toaster": {
+      "directed_to_required": "Please enter who this letter is directed to",
+      "submitted_success": "Your request has been submitted successfully"
+    }
+  },
+  "spinner" : {
+    "PleaseWait" : "Plaese Wait"
+  }
+}

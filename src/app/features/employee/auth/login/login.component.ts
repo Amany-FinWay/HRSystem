@@ -8,11 +8,12 @@ import { CommonModule } from '@angular/common';
 import { AnimatedBgComponent } from '../../../../shared/components/animated-bg/animated-bg.component';
 import { UserRole } from '../../../../shared/models/types/UserRole.type';
 import { User } from '../../../../shared/models/interfaces/User.model';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, VirtualKeyboardComponent, CommonModule, AnimatedBgComponent],
+  imports: [FormsModule, VirtualKeyboardComponent, CommonModule, AnimatedBgComponent, TranslateModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })

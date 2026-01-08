@@ -20,16 +20,17 @@
             <path d="M16 13H8M16 17H8M10 9H8" />
           </svg>
         </span>
-        Experience Certificate
+        {{ 'employment_letter.title' | translate }}
       </h2>
-      <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">Please fill in the details for your official
-        certificate.</p>
+      <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">
+       {{ 'employment_letter.subtitle' | translate }}
+     </p>
     </div>
 
     <form class="space-y-6">
       <div>
         <label class="block text-[11px] font-black uppercase text-gray-400 dark:text-slate-500 mb-2 ml-1 tracking-widest">
-          Select Language
+         {{ 'employment_letter.select_language_label' | translate }}
         </label>
       
         <div class="relative">
@@ -38,7 +39,13 @@
       
             <div class="flex items-center gap-3">
               <i class="fa-solid fa-globe text-blue-500 text-base"></i>
-              <span>{{ selectedLanguage || 'Select Language' }}</span>
+              <span>
+                 {{
+                  selectedLanguage
+                    ? (('employment_letter.languages.' + selectedLanguage) | translate)
+                    : ('employment_letter.select_language_placeholder' | translate)
+                }}
+              </span>
             </div>
       
             <i class="fa-solid fa-chevron-down text-xs text-gray-400 transition-transform duration-300"
@@ -54,7 +61,9 @@
                 <span
                   class="w-8 h-8 rounded-full bg-gray-100 dark:bg-slate-900 flex items-center justify-center text-xs group-hover:bg-blue-100 dark:group-hover:bg-blue-900/40">🇺🇸</span>
                 <span
-                  class="text-gray-700 dark:text-slate-300 group-hover:text-blue-700 dark:group-hover:text-white">English</span>
+                  class="text-gray-700 dark:text-slate-300 group-hover:text-blue-700 dark:group-hover:text-white">  
+                  {{ 'employment_letter.languages.English' | translate }}
+                </span>
                 <i *ngIf="selectedLanguage === 'English'" class="fa-solid fa-check ml-auto text-blue-500"></i>
               </button>
       
@@ -63,7 +72,9 @@
                 <span
                   class="w-8 h-8 rounded-full bg-gray-100 dark:bg-slate-900 flex items-center justify-center text-xs group-hover:bg-blue-100 dark:group-hover:bg-blue-900/40">🇪🇬</span>
                 <span
-                  class="text-gray-700 dark:text-slate-300 group-hover:text-blue-700 dark:group-hover:text-white">Arabic</span>
+                  class="text-gray-700 dark:text-slate-300 group-hover:text-blue-700 dark:group-hover:text-white">
+                 {{ 'employment_letter.languages.Arabic' | translate }}
+                </span>
                 <i *ngIf="selectedLanguage === 'Arabic'" class="fa-solid fa-check ml-auto text-blue-500"></i>
               </button>
             </div>
@@ -72,7 +83,7 @@
       </div>
       <div>
         <label class="block text-sm font-bold text-gray-700 dark:text-slate-300 mb-2 ml-1 uppercase tracking-wider">
-          Directed To
+           {{ 'employment_letter.directed_to_label' | translate }}
         </label>
         <div class="relative">
           <input #target type="text" readonly [value]="directedTo" placeholder="e.g. Banque Misr, Embassy of France"
@@ -92,13 +103,13 @@
         <button type="button"
           class="px-6 py-3 font-semibold text-gray-600 dark:text-slate-400 hover:text-gray-800 dark:hover:text-white transition-colors"
           (click)="closeModal()">
-          Cancel
+          {{ 'employment_letter.cancel' | translate }}
         </button>
 
         <button type="button"
           class="px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-500 dark:to-indigo-500 text-white font-bold rounded-xl shadow-lg shadow-blue-200 dark:shadow-none hover:scale-[1.02] active:scale-95 transition-all"
           (click)="onSubmit(selectedLanguage, target.value)">
-          Submit Request
+          {{ 'employment_letter.submit' | translate }}
         </button>
       </div>
     </form>

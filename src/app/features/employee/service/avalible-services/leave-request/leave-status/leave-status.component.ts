@@ -6,11 +6,12 @@ import { LeaveRow } from '../../../../../../shared/models/interfaces/LeaveRow.mo
 import { RequestsStatus } from '../../../../../../shared/models/types/RequestsStatus.type';
 import { AuthService } from '../../../../../../core/services/auth.service';
 import { UserRole } from '../../../../../../shared/models/types/UserRole.type';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-leave-status',
   standalone: true,
-  imports: [CommonModule, LeaveRequestComponent],
+  imports: [CommonModule, LeaveRequestComponent,TranslateModule],
   templateUrl: './leave-status.component.html',
   styleUrls: ['./leave-status.component.scss'],
 })
@@ -18,25 +19,26 @@ export class LeaveStatusComponent implements OnInit {
   showLeaveModal = false;
 
   balanceCards: BalanceCard[] = [
-    {
-      title: 'Annual Leave',
-      remaining: 15,
-      iconBgClass: 'bg-blue-50 text-blue-600',
-      iconClass: 'fa-regular fa-calendar-days',
-    },
-    {
-      title: 'Sick Leave',
-      remaining: 12,
-      iconBgClass: 'bg-green-50 text-green-600',
-      iconClass: 'fa-regular fa-clock',
-    },
-    {
-      title: 'Personal Leave',
-      remaining: 5,
-      iconBgClass: 'bg-purple-50 text-purple-600',
-      iconClass: 'fa-solid fa-house',
-    },
-  ];
+  {
+    title: 'leave_status.cards.annual',
+    remaining: 15,
+    iconBgClass: 'bg-blue-50 text-blue-600',
+    iconClass: 'fa-regular fa-calendar-days',
+  },
+  {
+    title: 'leave_status.cards.sick',
+    remaining: 12,
+    iconBgClass: 'bg-green-50 text-green-600',
+    iconClass: 'fa-regular fa-clock',
+  },
+  {
+    title: 'leave_status.cards.personal',
+    remaining: 5,
+    iconBgClass: 'bg-purple-50 text-purple-600',
+    iconClass: 'fa-solid fa-house',
+  },
+];
+
 
   leaveRows: LeaveRow[] = [];
 
@@ -44,13 +46,13 @@ export class LeaveStatusComponent implements OnInit {
     private authService: AuthService
   ) {}
 
-    // Demo data
+  // Demo data
   private demoData: LeaveRow[] = [];
 
   ngOnInit(): void {
     this.demoData = [
       {
-        type: 'Annual Leave',
+        type: 'leave_status.cards.annual',
         startDate: '2024-02-15',
         endDate: '2024-02-19',
         days: 5,
@@ -70,7 +72,7 @@ export class LeaveStatusComponent implements OnInit {
         }
       },
       {
-        type: 'Sick Leave',
+        type: 'leave_status.cards.sick',
         startDate: '2024-01-10',
         endDate: '2024-01-12',
         days: 3,
@@ -90,7 +92,7 @@ export class LeaveStatusComponent implements OnInit {
         }
       },
       {
-        type: 'Personal Leave',
+        type: 'leave_status.cards.personal',
         startDate: '2024-02-28',
         endDate: '2024-02-28',
         days: 1,
@@ -115,15 +117,29 @@ export class LeaveStatusComponent implements OnInit {
 
   loadLeaveRows() {
     const stored = localStorage.getItem('leaveRows');
-    let allRows = [];
+    let allRows: LeaveRow[] = [];
+    const mapOldTypeToKey: Record<string, string> = {
+      'Annual Leave': 'leave_status.cards.annual',
+      'Sick Leave': 'leave_status.cards.sick',
+      'Personal Leave': 'leave_status.cards.personal',
+    };
+
     if (stored) {
-      allRows = JSON.parse(stored);
+      const parsed: LeaveRow[] = JSON.parse(stored);
+      allRows = parsed.map((r) => ({
+        ...r,
+        type: mapOldTypeToKey[r.type] ?? r.type,
+      }));
+      this.leaveRows = allRows;
+      this.saveLeaveRows();
     } else {
       allRows = this.demoData;
-    }
-    this.leaveRows = allRows.filter((row: LeaveRow) => row.requester.id === this.authService.getUser()?.id);
-    this.saveLeaveRows();
+      this.leaveRows = allRows;
+      this.saveLeaveRows();
   }
+  const currentUserId = this.authService.getUser()?.id;
+  this.leaveRows = allRows.filter((row: LeaveRow) => row.requester.id === currentUserId);
+}
 
   saveLeaveRows() {
     localStorage.setItem('leaveRows', JSON.stringify(this.leaveRows));

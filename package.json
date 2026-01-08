@@ -18,6 +18,8 @@
     "@angular/platform-browser-dynamic": "^19.2.0",
     "@angular/router": "^19.2.0",
     "@fortawesome/fontawesome-free": "^7.1.0",
+    "@ngx-translate/core": "^17.0.0",
+    "@ngx-translate/http-loader": "^7.0.0",
     "flowbite": "^4.0.1",
     "ngx-spinner": "^18.0.0",
     "ngx-toastr": "^19.1.0",

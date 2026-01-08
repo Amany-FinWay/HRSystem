@@ -9,12 +9,14 @@ import { CommonModule } from '@angular/common';
 import { VirtualKeyboardComponent } from '../../../../../../shared/components/virtual-keyboard/virtual-keyboard.component';
 import { AuthService } from '../../../../../../core/services/auth.service';
 import { UserRole } from '../../../../../../shared/models/types/UserRole.type';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-salary-certificate',
-  imports: [CommonModule, VirtualKeyboardComponent],
+  standalone: true,
+  imports: [CommonModule, VirtualKeyboardComponent, TranslateModule],
   templateUrl: './salary-certificate.component.html',
-  styleUrl: './salary-certificate.component.scss'
+  styleUrl: './salary-certificate.component.scss',
 })
 export class SalaryCertificateComponent {
   langOpen: boolean = false;
@@ -26,8 +28,10 @@ export class SalaryCertificateComponent {
   constructor(
     private spinnerToasterService: SpinnerToasterService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private translate: TranslateService
   ) {}
+
   @Output() close = new EventEmitter<void>();
 
   closeModal() {
@@ -65,7 +69,7 @@ export class SalaryCertificateComponent {
     if (!directedTarget) {
       this.spinnerToasterService.showToaster(
         'error',
-        'Please enter who this letter is directed to'
+        this.translate.instant('salary_certificate.toaster.directed_to_required')
       );
       return;
     }
@@ -106,7 +110,7 @@ export class SalaryCertificateComponent {
     setTimeout(() => {
       this.spinnerToasterService.showToaster(
         'success',
-        'Your request has been submitted successfully'
+        this.translate.instant('salary_certificate.toaster.submitted_success')
       );
       this.closeModal();
       this.router.navigate(['/employee/service']);
