@@ -10,7 +10,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   selector: 'app-header',
   templateUrl: './header.component.html',
   standalone: true,
-  imports: [CommonModule, LangSwitchComponent,TranslateModule],
+  imports: [CommonModule, LangSwitchComponent, TranslateModule],
 })
 export class HeaderComponent {
 

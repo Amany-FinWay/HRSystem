@@ -1,7 +1,7 @@
 <header
     class="bg-blue-600 dark:bg-slate-900 text-white p-4 flex justify-between items-center shadow-lg transition-colors duration-500 border-b border-blue-500/20 dark:border-slate-800">
     <h1 class="text-xl font-bold tracking-tight"> {{ 'header.title' | translate }} </h1>
-    <div class="flex items-center gap-4 ms-[1%]">
+    <div class="flex items-center gap-4 mr-[1%]">
         <button *ngIf="authService.getRole() == 'manager'" (click)="navigateToProfile()"
         class="h-12 w-12 flex items-center justify-center rounded-2xl bg-white/40 dark:bg-slate-900/40 backdrop-blur-md border border-white/20 text-gray-700 dark:text-slate-200 hover:bg-white/60 dark:hover:bg-slate-800/60 transition-all active:scale-90 shadow-sm">
             <i class="fa-solid fa-user text-lg"></i>
