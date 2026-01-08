@@ -17,7 +17,6 @@ import { AuthService } from '../../../core/services/auth.service';
   styleUrls: ['./service.component.scss'],
 })
 export class ServiceComponent implements OnInit { 
-  counter = 60;
   showGreeting = signal(false);
   userName!: string;
   greetingText = signal('');
@@ -28,7 +27,6 @@ export class ServiceComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.startTick();
     this.setGreetingByTime();
     this.userName = this.authService.getUser()?.name!;
     this.showGreeting.set(true);
@@ -77,22 +75,6 @@ export class ServiceComponent implements OnInit {
   ];
 
   onCardClick(card: Card) {
-    this.stopTick();
     this.selectedCard = card.title;
-  }
-
-  startTick() {
-    this.counter = 60;
-    const interval = setInterval(() => {
-      this.counter--;
-      if (this.counter === 0) {
-        clearInterval(interval);
-        this.router.navigate(['/login']);
-      }
-    }, 1000);
-  }
-
-  stopTick() {
-    this.counter = 0;
   }
 }

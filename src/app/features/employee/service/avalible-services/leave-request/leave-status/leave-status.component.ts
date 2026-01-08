@@ -4,6 +4,8 @@ import { LeaveRequestComponent } from '../leave-request/leave-request.component'
 import { BalanceCard } from '../../../../../../shared/models/interfaces/BalanceCard.model';
 import { LeaveRow } from '../../../../../../shared/models/interfaces/LeaveRow.model';
 import { RequestsStatus } from '../../../../../../shared/models/types/RequestsStatus.type';
+import { AuthService } from '../../../../../../core/services/auth.service';
+import { UserRole } from '../../../../../../shared/models/types/UserRole.type';
 
 @Component({
   selector: 'app-leave-status',
@@ -38,46 +40,89 @@ export class LeaveStatusComponent implements OnInit {
 
   leaveRows: LeaveRow[] = [];
 
-  // Demo data
-  private demoData: LeaveRow[] = [
-    {
-      type: 'Annual Leave',
-      startDate: '2024-02-15',
-      endDate: '2024-02-19',
-      days: 5,
-      status: RequestsStatus.approved,
-      reason: 'Family vacation',
-    },
-    {
-      type: 'Sick Leave',
-      startDate: '2024-01-10',
-      endDate: '2024-01-12',
-      days: 3,
-      status: RequestsStatus.approved,
-      reason: 'Medical treatment',
-    },
-    {
-      type: 'Personal Leave',
-      startDate: '2024-02-28',
-      endDate: '2024-02-28',
-      days: 1,
-      status: RequestsStatus.pending,
-      reason: 'Personal matters',
-    },
-  ];
+  constructor(
+    private authService: AuthService
+  ) {}
+
+    // Demo data
+  private demoData: LeaveRow[] = [];
 
   ngOnInit(): void {
+    this.demoData = [
+      {
+        type: 'Annual Leave',
+        startDate: '2024-02-15',
+        endDate: '2024-02-19',
+        days: 5,
+        status: RequestsStatus.approved,
+        reason: 'Family vacation',
+        requester: {
+          id: 'emp001',
+          employeeId: 'emp001',
+          pin: '1234',
+          name: 'Amr Adel',
+          role: UserRole.employee,
+          department: 'Software',
+          hireDate: '2025-11-01',
+          jobTitle: 'Fullstack Developer',
+          manager: 'Peter Saber',
+          avatarUrl: 'https://i.pravatar.cc/160?img=12',
+        }
+      },
+      {
+        type: 'Sick Leave',
+        startDate: '2024-01-10',
+        endDate: '2024-01-12',
+        days: 3,
+        status: RequestsStatus.approved,
+        reason: 'Medical treatment',
+        requester: {
+          id: 'emp001',
+          employeeId: 'emp001',
+          pin: '1234',
+          name: 'Amr Adel',
+          role: UserRole.employee,
+          department: 'Software',
+          hireDate: '2025-11-01',
+          jobTitle: 'Fullstack Developer',
+          manager: 'Peter Saber',
+          avatarUrl: 'https://i.pravatar.cc/160?img=12',
+        }
+      },
+      {
+        type: 'Personal Leave',
+        startDate: '2024-02-28',
+        endDate: '2024-02-28',
+        days: 1,
+        status: RequestsStatus.pending,
+        reason: 'Personal matters',
+        requester: {
+          id: 'emp002',
+          employeeId: 'emp002',
+          pin: '5678',
+          name: 'Mohamed Younes',
+          role: UserRole.employee,
+          department: 'Software',
+          hireDate: '2025-09-01',
+          jobTitle: 'Fullstack Developer',
+          manager: 'Peter Saber',
+          avatarUrl: 'https://i.pravatar.cc/160?img=12',
+        }
+      },
+    ]
     this.loadLeaveRows();
   }
 
   loadLeaveRows() {
     const stored = localStorage.getItem('leaveRows');
+    let allRows = [];
     if (stored) {
-      this.leaveRows = JSON.parse(stored);
+      allRows = JSON.parse(stored);
     } else {
-      this.leaveRows = this.demoData;
-      this.saveLeaveRows();
+      allRows = this.demoData;
     }
+    this.leaveRows = allRows.filter((row: LeaveRow) => row.requester.id === this.authService.getUser()?.id);
+    this.saveLeaveRows();
   }
 
   saveLeaveRows() {
@@ -113,6 +158,18 @@ export class LeaveStatusComponent implements OnInit {
       days: this.calculateDays(form.startDate, form.endDate),
       status: RequestsStatus.pending,
       reason: form.reason || '-',
+      requester: {
+        id: this.authService.getUser()?.id || '',
+        employeeId: this.authService.getUser()?.employeeId || '',
+        pin: this.authService.getUser()?.pin || '',
+        name: this.authService.getUser()?.name || '',
+        role: this.authService.getRole() ?? UserRole.employee,
+        department: this.authService.getUser()?.department || '',
+        hireDate: this.authService.getUser()?.hireDate || '',
+        jobTitle: this.authService.getUser()?.jobTitle || '',
+        manager: this.authService.getUser()?.manager || '',
+        avatarUrl: this.authService.getUser()?.avatarUrl || '',
+      }
     };
 
     this.leaveRows = [newLeave, ...this.leaveRows];

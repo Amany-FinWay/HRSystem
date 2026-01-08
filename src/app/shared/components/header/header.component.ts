@@ -18,6 +18,10 @@ export class HeaderComponent {
     public themeService: ThemeService
   ) {}
 
+  navigateToProfile() {
+    this.router.navigate(['/employee/profile-id']);
+  }
+
   logout() {
     this.authService.logout();
     localStorage.removeItem('user');

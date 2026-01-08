@@ -14,9 +14,9 @@ private user: any = null;
 ) {}
 
   private dummyUsers: User[] = [
-    { id: 'emp001', pin: '1234', name: 'Alice Employee', role: UserRole.employee },
-    { id: 'emp002', pin: '5678', name: 'Bob Employee', role: UserRole.employee },
-    { id: 'mgr001', pin: '0000', name: 'Charlie Manager', role: UserRole.manager },
+    { id: 'emp001', employeeId: 'emp001', pin: '1234', name: 'Amr Adel', role: UserRole.employee, department: 'Software', hireDate: '2025-11-01', jobTitle: 'Fullstack Developer', manager: 'Peter Saber', avatarUrl: 'https://i.pravatar.cc/160?img=12'},
+    { id: 'emp002', employeeId: 'emp002', pin: '5678', name: 'Mohamed Younes', role: UserRole.employee, department: 'Software', hireDate: '2025-09-01', jobTitle: 'Fullstack Developer', manager: 'Peter Saber', avatarUrl: 'https://i.pravatar.cc/160?img=12'},
+    { id: 'mgr001', employeeId: 'mgr001', pin: '0000', name: 'Donia Nabil', role: UserRole.manager, department: 'HR', hireDate: '2020-05-15', jobTitle: 'HR Manager', manager: 'Ahmed Amin', avatarUrl: 'https://png.pngtree.com/png-vector/20241019/ourlarge/pngtree-a-smiling-female-employee-posing-png-image_14113973.png' },
   ];
 
   private loggedInUser?: User;

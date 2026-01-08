@@ -7,6 +7,7 @@ import { VirtualKeyboardComponent } from '../../../../shared/components/virtual-
 import { CommonModule } from '@angular/common';
 import { AnimatedBgComponent } from '../../../../shared/components/animated-bg/animated-bg.component';
 import { UserRole } from '../../../../shared/models/types/UserRole.type';
+import { User } from '../../../../shared/models/interfaces/User.model';
 
 @Component({
   selector: 'app-login',
@@ -82,20 +83,21 @@ export class LoginComponent {
   // ================= Biometric Login =================
   loginBiometric() {
     this.showBiometricMessage = true;
-    const user = {
+    const user: User = {
       id: 'BIO123',
       name: 'Amany Abdelfattah',
-      role: UserRole.employee
+      role: UserRole.employee,
+      department: 'Software',
+      hireDate: '2022-04-01',
+      jobTitle: 'Frontend Developer',
+      manager: 'Peter Saber',
+      avatarUrl: 'https://png.pngtree.com/png-vector/20241019/ourlarge/pngtree-a-smiling-female-employee-posing-png-image_14113973.png',
+      employeeId: 'BIO123'
     };
     localStorage.setItem('user', JSON.stringify(user));
     setTimeout(() => {
       this.showBiometricMessage = false;
       this.spinnerToasterService.showToaster('success', 'Biometric login successful');
-      this.authService.setUser({
-        employeeId: 'BIO123',
-        role: UserRole.employee,
-        name: 'Mohamed Younes'
-      });
       this.router.navigate(['/employee/service']);
     }, 2000);
   }

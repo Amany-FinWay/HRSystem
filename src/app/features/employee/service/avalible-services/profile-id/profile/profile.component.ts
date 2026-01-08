@@ -4,12 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../../../../core/services/auth.service';
 import { VirtualKeyboardComponent } from '../../../../../../shared/components/virtual-keyboard/virtual-keyboard.component';
 import { User } from '../../../../../../shared/models/interfaces/User.model';
-import { UserRole } from '../../../../../../shared/models/types/UserRole.type';
+import { AnimatedBgComponent } from '../../../../../../shared/components/animated-bg/animated-bg.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, FormsModule, VirtualKeyboardComponent],
+  imports: [CommonModule, FormsModule, VirtualKeyboardComponent, AnimatedBgComponent],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
@@ -19,17 +20,7 @@ export class ProfileComponent {
   showKeyboardConfirm = false;
   private keyboardHideTimeout: any;
   
-  employee: User = {
-    name: 'Amr Adel',
-    employeeId: 'EMP-001',
-    department: 'Software',
-    jobTitle: 'Developer',
-    hireDate: '2023-06-15',
-    manager: 'Petet Saber',
-    avatarUrl: 'https://i.pravatar.cc/160?img=12',
-    id: '',
-    role: UserRole.employee
-  };
+  employee!: User;
 
   pinForm = {
     currentPin: '',
@@ -41,19 +32,17 @@ export class ProfileComponent {
   pinSuccess = '';
   private messageTimer: any;
 
-  constructor(private auth: AuthService) {}
+  constructor(
+    public auth: AuthService,
+    private router: Router
+  ) {}
+
   ngOnInit() {
     debugger
-    const u = this.auth.getUser();
-    if (u) {
-      this.employee.name = u.name;
-      this.employee.employeeId = u.id.toUpperCase();
-      this.employee.department = 'Software';
-      this.employee.jobTitle = 'Developer';
-      this.employee.hireDate = '15 March 2020';
-      this.employee.manager = 'Peter Saber';
-      this.employee.avatarUrl = 'https://i.pravatar.cc/160?img=12';
-    }
+    this.employee = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : null;
+    console.log(this.employee);
+    
+
   }
 
   private clearMessagesAfterDelay() {
@@ -130,5 +119,11 @@ export class ProfileComponent {
 
   clearInput(field: 'currentPin' | 'newPin' | 'confirmPin') {
     this.pinForm[field] = '';
+  }
+
+  cancel() {
+    if(this.auth.getRole() === 'manager') {
+      this.router.navigate(['/manager/dashboard']);
+    }
   }
 }

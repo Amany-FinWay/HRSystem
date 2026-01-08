@@ -6,6 +6,8 @@ import { HRLettersModel } from '../../../../../shared/models/interfaces/HRLetter
 import { HRLetterRequestType } from '../../../../../shared/models/types/HRLetterRequestType.type';
 import { RequestsStatus } from '../../../../../shared/models/types/RequestsStatus.type';
 import { Language } from '../../../../../shared/models/types/Language.type';
+import { AuthService } from '../../../../../core/services/auth.service';
+import { UserRole } from '../../../../../shared/models/types/UserRole.type';
 
 @Component({
   selector: 'app-documents',
@@ -22,23 +24,39 @@ export class DocumentsComponent implements OnInit {
   showSalaryModal = false;
   showExperienceModal = false;
 
+  constructor(
+    private authService: AuthService
+  ) {}
+  
   ngOnInit(): void {
     this.loadRequests();
   }
 
   loadRequests() {
     const savedData = localStorage.getItem('hr_requests');
-
+    let allRequests: HRLettersModel[] = [];
     if (savedData) {
-      this.requestsHistory.set(JSON.parse(savedData));
+      allRequests = JSON.parse(savedData);
     } else {
-      const initialData: HRLettersModel[] = [
+      allRequests = [
         {
           type: HRLetterRequestType.salary,
           dateRequested: '2026-01-02',
           status: RequestsStatus.approved,
           language: Language.english,
           directedTo: 'Embassy of France',
+          requester: {
+            id: 'BIO123',
+            employeeId:'BIO123',
+            pin: '4321',
+            name: 'Amany Abdelfattah',
+            role: UserRole.employee,
+            department: 'Software',
+            hireDate: '2022-04-03',
+            jobTitle: 'Frontend Developer',
+            manager: 'Peter Saber',
+            avatarUrl: 'https://png.pngtree.com/png-vector/20241019/ourlarge/pngtree-a-smiling-female-employee-posing-png-image_14113973.png',
+          }
         },
         {
           type: HRLetterRequestType.experience,
@@ -46,12 +64,24 @@ export class DocumentsComponent implements OnInit {
           status: RequestsStatus.pending,
           language: Language.arabic,
           directedTo: 'General',
-        },
+          requester: {
+            id: 'emp001',
+            employeeId: 'emp001',
+            pin: '1234',
+            name: 'Amr Adel',
+            role: UserRole.employee,
+            department: 'Software',
+            hireDate: '2025-11-01',
+            jobTitle: 'Fullstack Developer',
+            manager: 'Peter Saber',
+            avatarUrl: 'https://i.pravatar.cc/160?img=12',
+          }
+        }
       ];
-
-      localStorage.setItem('hr_requests', JSON.stringify(initialData));
-      this.requestsHistory.set(initialData);
+      localStorage.setItem('hr_requests', JSON.stringify(allRequests));
     }
+    const filteredData = allRequests.filter(req => req.requester.id === this.authService.getUser()?.id);
+        this.requestsHistory.set(filteredData);
   }
 
   downloadFile(req: HRLettersModel) {

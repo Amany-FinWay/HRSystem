@@ -9,6 +9,7 @@ import { LeaveApprovalComponent } from './features/manager/leave-approval/leave-
 import { ServiceComponent } from './features/employee/service/service.component';
 import { EmploymentLetterComponent } from './features/employee/service/avalible-services/documents/employment-letter/employment-letter.component';
 import { SalaryCertificateComponent } from './features/employee/service/avalible-services/documents/salary-certificate/salary-certificate.component';
+import { ProfileComponent } from './features/employee/service/avalible-services/profile-id/profile/profile.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -24,6 +25,7 @@ export const routes: Routes = [
   { path: 'manager/dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'manager/leave-approval', component: LeaveApprovalComponent, canActivate: [AuthGuard] },
   { path: 'employee/service', component: ServiceComponent, canActivate: [AuthGuard] },
+  { path: 'employee/profile-id', component: ProfileComponent, canActivate: [AuthGuard] },
 
   { path: '**', redirectTo: 'login' }
 ];

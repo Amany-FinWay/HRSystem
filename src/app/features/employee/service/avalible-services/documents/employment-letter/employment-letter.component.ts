@@ -7,6 +7,8 @@ import { RequestsStatus } from '../../../../../../shared/models/types/RequestsSt
 import { Language } from '../../../../../../shared/models/types/Language.type';
 import { CommonModule } from '@angular/common';
 import { VirtualKeyboardComponent } from '../../../../../../shared/components/virtual-keyboard/virtual-keyboard.component';
+import { AuthService } from '../../../../../../core/services/auth.service';
+import { UserRole } from '../../../../../../shared/models/types/UserRole.type';
 
 @Component({
   selector: 'app-employment-letter',
@@ -23,7 +25,8 @@ export class EmploymentLetterComponent {
 
   constructor(
     private spinnerToasterService: SpinnerToasterService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   @Output() close = new EventEmitter<void>();
@@ -78,6 +81,18 @@ export class EmploymentLetterComponent {
       status: RequestsStatus.pending,
       language: selectedLanguage as Language,
       directedTo: directedTarget,
+      requester: {
+        id: this.authService.getUser()?.id || '',
+        employeeId: this.authService.getUser()?.employeeId || '',
+        pin: this.authService.getUser()?.pin || '',
+        name: this.authService.getUser()?.name || '',
+        role: this.authService.getRole() ?? UserRole.employee,
+        department: this.authService.getUser()?.department || '',
+        hireDate: this.authService.getUser()?.hireDate || '',
+        jobTitle: this.authService.getUser()?.jobTitle || '',
+        manager: this.authService.getUser()?.manager || '',
+        avatarUrl: this.authService.getUser()?.avatarUrl || '',
+      }
     };
 
     try {
