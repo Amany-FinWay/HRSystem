@@ -225,5 +225,42 @@
   },
   "spinner" : {
     "PleaseWait" : "برجاء الانتظار"
+  },
+  "dashboard": {
+    "stats": {
+      "pending_action": "طلبات معلّقة",
+      "total_approved": "إجمالي المقبولة",
+      "total_rejected": "إجمالي المرفوضة"
+    },
+    "filters": {
+      "pending": "معلّقة",
+      "approved": "مقبولة",
+      "rejected": "مرفوضة"
+    },
+    "categories": {
+      "leave": "إجازات",
+      "hr_document": "خطابات الموارد البشرية"
+    },
+    "request_title": "عنوان الطلب",
+    "details_title": "التفاصيل والملاحظات",
+    "actions": {
+      "approve": "قبول",
+      "reject": "رفض"
+    },
+    "details": {
+      "duration": "المدة: {{days}} يوم",
+      "directed_to": "موجّه إلى: {{to}}",
+      "language": "اللغة: {{lang}}"
+    },
+    "common": {
+      "no_reason": "لا يوجد سبب"
+    },
+    "empty": "لا توجد طلبات {{status}}"
+  },
+  "documents": {
+    "type": {
+      "salary": "خطاب تعريف بالراتب",
+      "experience": "شهادة خبرة"
+    }
   }
 }

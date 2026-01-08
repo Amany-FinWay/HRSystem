@@ -225,5 +225,42 @@
   },
   "spinner" : {
     "PleaseWait" : "Plaese Wait"
+  },
+  "dashboard": {
+    "stats": {
+      "pending_action": "Pending Action",
+      "total_approved": "Total Approved",
+      "total_rejected": "Total Rejected"
+    },
+    "filters": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
+    "categories": {
+      "leave": "Leave",
+      "hr_document": "HR Document"
+    },
+    "request_title": "Request Title",
+    "details_title": "Details & Remarks",
+    "actions": {
+      "approve": "Approve",
+      "reject": "Reject"
+    },
+    "details": {
+      "duration": "Duration: {{days}} Day(s)",
+      "directed_to": "Directed To: {{to}}",
+      "language": "Language: {{lang}}"
+    },
+    "common": {
+      "no_reason": "No reason provided"
+    },
+    "empty": "No {{status}} requests"
+  },
+  "documents": {
+    "type": {
+      "salary": "Salary Definition Letter",
+      "experience": "Experience Certificate"
+    }
   }
 }
