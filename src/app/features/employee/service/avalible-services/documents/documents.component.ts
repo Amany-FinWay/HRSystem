@@ -122,29 +122,27 @@ export class DocumentsComponent implements OnInit {
   }
 
   getTypeKey(type: any): string {
-  if (type === 'salary' || type === 'experience') return type;
+    if (type === 'salary' || type === 'experience') return type;
 
-  const t = String(type).toLowerCase();
-  if (t.includes('salary')) return 'salary';
-  if (t.includes('experience')) return 'experience';
+    const t = String(type).toLowerCase();
+    if (t.includes('salary')) return 'salary';
+    if (t.includes('experience')) return 'experience';
+    return 'salary';
+  }
 
-  // fallback
-  return 'salary';
-}
+  getStatusKey(status: any): string {
+    const s = String(status).toLowerCase();
+    if (s.includes('approved')) return 'approved';
+    if (s.includes('pending')) return 'pending';
+    if (s.includes('rejected')) return 'rejected';
+    return 'pending';
+  }
 
-getStatusKey(status: any): string {
-  const s = String(status).toLowerCase();
-  if (s.includes('approved')) return 'approved';
-  if (s.includes('pending')) return 'pending';
-  if (s.includes('rejected')) return 'rejected';
-  return 'pending';
-}
-
-getLangKey(lang: any): string {
-  const l = String(lang).toLowerCase();
-  if (l.includes('english') || l === 'en') return 'english';
-  if (l.includes('arabic') || l === 'ar') return 'arabic';
-  return 'english';
-}
+  getLangKey(lang: any): string {
+    const l = String(lang).toLowerCase();
+    if (l.includes('english') || l === 'en') return 'english';
+    if (l.includes('arabic') || l === 'ar') return 'arabic';
+    return 'english';
+  }
 
 }
