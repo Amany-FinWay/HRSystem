@@ -40,6 +40,10 @@ export class VirtualKeyboardComponent {
   }
 
 
+  get currentLang(): string {
+    return localStorage.getItem('lang') || 'en';
+  }
+
   pressKey(key: string) { this.keyPress.emit(key); }
   pressBackspace() { this.backspace.emit(); }
   pressClear() { this.clear.emit(); }

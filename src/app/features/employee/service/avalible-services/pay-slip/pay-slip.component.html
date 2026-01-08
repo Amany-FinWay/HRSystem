@@ -45,27 +45,40 @@
                  {{ 'pay_slip.monthly.title' | translate }}
             </h2>
 
-            <div class="flex flex-wrap gap-3">
-                <div class="min-w-[120px]">
-                    <select [(ngModel)]="selectedYear" (change)="onFilterChange()"
-                        class="bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 text-gray-900 dark:text-white text-xs font-bold rounded-xl focus:ring-2 focus:ring-blue-500 block w-full p-3 outline-none transition-all">
-                        @for (year of years; track year) {
-                        <option [value]="year">{{year}}</option>
-                        }
-                    </select>
-                </div>
+        <div class="flex flex-wrap gap-4">
+            <div class="relative min-w-[140px] group">
+                <button (click)="toggleDropdown('year')"
+                    class="w-full flex items-center justify-between bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 text-gray-900 dark:text-white px-5 py-4 rounded-2xl shadow-sm hover:border-blue-500 transition-all active:scale-95">
+                    <span class="text-sm font-black">{{ selectedYear() }}</span>
+                    <i class="fa-solid fa-chevron-down text-[10px] transition-transform" [class.rotate-180]="isYearOpen"></i>
+                </button>
 
-                <div class="min-w-[140px]">
-                    <select [(ngModel)]="selectedMonth" (change)="onFilterChange()"
-                        class="bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 text-gray-900 dark:text-white text-xs font-bold rounded-xl focus:ring-2 focus:ring-blue-500 block w-full p-3 outline-none transition-all">
-                        @for (month of months; track month) {
-                        <option [value]="month">
-                            {{ ('months.' + month) | translate }}
-                        </option>
-                        }
-                    </select>
+                <div *ngIf="isYearOpen"
+                    class="absolute top-full left-0 w-full mt-2 bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 rounded-2xl shadow-2xl z-50 max-h-60 overflow-y-auto animate-in fade-in zoom-in-95 duration-200">
+                    <div *ngFor="let year of years" (click)="selectYear(year)"
+                        class="px-5 py-4 text-sm font-bold text-gray-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 cursor-pointer border-b border-gray-50 dark:border-slate-700/50 last:border-none">
+                        {{ year }}
+                    </div>
                 </div>
             </div>
+
+            <div class="relative min-w-[180px]">
+                <button (click)="toggleDropdown('month')"
+                    class="w-full flex items-center justify-between bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 text-gray-900 dark:text-white px-5 py-4 rounded-2xl shadow-sm hover:border-blue-500 transition-all active:scale-95">
+                    <span class="text-sm font-black">{{ ('months.' + selectedMonth()) | translate }}</span>
+                    <i class="fa-solid fa-calendar-days text-blue-500 text-xs"></i>
+                </button>
+
+                <div *ngIf="isMonthOpen"
+                    class="absolute top-full left-0 w-full mt-2 bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 rounded-2xl shadow-2xl z-50 max-h-80 overflow-y-auto animate-in fade-in zoom-in-95 duration-200">
+                    <div *ngFor="let month of months" (click)="selectMonth(month)"
+                        class="px-5 py-4 text-sm font-bold text-gray-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 cursor-pointer border-b border-gray-50 dark:border-slate-700/50 last:border-none flex justify-between items-center">
+                        {{ ('months.' + month) | translate }}
+                        <i *ngIf="selectedMonth() === month" class="fa-solid fa-check text-[10px]"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
         </div>
 
         <div class="mb-4 flex items-center gap-2">
@@ -84,38 +97,38 @@
                 <thead
                     class="text-[10px] font-black uppercase text-gray-400 dark:text-slate-500 bg-gray-50 dark:bg-slate-900/80 border-b border-gray-100 dark:border-slate-700 tracking-widest">
                     <tr>
-                        <th class="px-6 py-4">{{ 'pay_slip.monthly.description' | translate }}</th>
-                        <th class="px-6 py-4 text-right">{{ 'pay_slip.monthly.amount' | translate }}</th>
+                        <th class="px-6 py-4 text-left rtl:text-right">{{ 'pay_slip.monthly.description' | translate }}</th>
+                        <th class="px-6 py-4 text-right rtl:text-left">{{ 'pay_slip.monthly.amount' | translate }}</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-50 dark:divide-slate-700 transition-colors">
                     <tr class="hover:bg-gray-50/50 dark:hover:bg-slate-700/20 transition-colors">
-                        <td class="px-6 py-5 font-semibold text-gray-700 dark:text-slate-300">
+                        <td class="px-6 py-5 font-semibold text-gray-700 dark:text-slate-300 text-left rtl:text-right">
                             {{ 'pay_slip.monthly.basic' | translate }}
                         </td>
-                        <td class="px-6 py-5 text-right font-bold text-gray-900 dark:text-white">{{
+                        <td class="px-6 py-5 text-right font-bold text-gray-900 dark:text-white text-left rtl:text-left">{{
                             payslipDetails().basic }}</td>
                     </tr>
                     <tr class="hover:bg-gray-50/50 dark:hover:bg-slate-700/20 transition-colors">
-                        <td class="px-6 py-5 text-gray-600 dark:text-slate-400">
+                        <td class="px-6 py-5 text-gray-600 dark:text-slate-400 text-left rtl:text-right">
                             {{ 'pay_slip.monthly.allowances' | translate }}
                         </td>
-                        <td class="px-6 py-5 text-right font-black text-emerald-600 dark:text-emerald-400">+{{
+                        <td class="px-6 py-5 text-right font-black text-emerald-600 dark:text-emerald-400 text-left rtl:text-left">+{{
                             payslipDetails().allowances }}</td>
                     </tr>
                     <tr class="hover:bg-gray-50/50 dark:hover:bg-slate-700/20 transition-colors">
-                        <td class="px-6 py-5 text-gray-600 dark:text-slate-400">
+                        <td class="px-6 py-5 text-gray-600 dark:text-slate-400 text-left rtl:text-right">
                             {{ 'pay_slip.monthly.deductions' | translate }}
                         </td>
-                        <td class="px-6 py-5 text-right font-black text-red-600 dark:text-red-400">-{{
+                        <td class="px-6 py-5 text-right font-black text-red-600 dark:text-red-400 text-left rtl:text-left">-{{
                             payslipDetails().deductions }}</td>
                     </tr>
                     <tr class="bg-blue-50/50 dark:bg-blue-900/20">
-                        <td class="px-6 py-6 font-black text-blue-800 dark:text-blue-300 text-base">
+                        <td class="px-6 py-6 font-black text-blue-800 dark:text-blue-300 text-base text-left rtl:text-right">
                             {{ 'pay_slip.monthly.net' | translate }}
                         </td>
                         <td
-                            class="px-6 py-6 text-right font-black text-blue-800 dark:text-blue-300 text-xl tracking-tighter">
+                            class="px-6 py-6 text-right font-black text-blue-800 dark:text-blue-300 text-xl tracking-tighter text-left rtl:text-left">
                             {{ payslipDetails().net }}
                         </td>
                     </tr>

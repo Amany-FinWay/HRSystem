@@ -1,15 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, HostListener, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-pay-slip',
-  imports: [CommonModule, FormsModule,TranslateModule],
+  imports: [CommonModule, FormsModule, TranslateModule],
   templateUrl: './pay-slip.component.html',
   styleUrl: './pay-slip.component.scss',
 })
 export class PaySlipComponent {
+  isYearOpen = false;
+  isMonthOpen = false;
+
   bankInfo = signal({
     bankName: 'Arab Bank',
     accountNumber: 'XXXX-XXXX-1234',
@@ -20,14 +23,44 @@ export class PaySlipComponent {
   selectedMonth = signal('January');
 
   years = [2024, 2025, 2026];
-months = ['January', 'February', 'March', 'April'];
+  months = ['January', 'February', 'March', 'April'];
 
   payslipDetails = signal({
     basic: 5000,
     allowances: 1200,
     deductions: 300,
-    net: 5900
+    net: 5900,
   });
+
+  toggleDropdown(type: 'year' | 'month') {
+    if (type === 'year') {
+      this.isYearOpen = !this.isYearOpen;
+      this.isMonthOpen = false;
+    } else {
+      this.isMonthOpen = !this.isMonthOpen;
+      this.isYearOpen = false;
+    }
+  }
+
+  selectYear(year: number) {
+    this.selectedYear.set(year); // ✅ الطريقة الصحيحة
+    this.isYearOpen = false;
+    this.onFilterChange();
+  }
+
+  selectMonth(month: string) {
+    this.selectedMonth.set(month); // ✅ الطريقة الصحيحة
+    this.isMonthOpen = false;
+    this.onFilterChange();
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClick(event: MouseEvent) {
+    if (!(event.target as HTMLElement).closest('.relative')) {
+      this.isYearOpen = false;
+      this.isMonthOpen = false;
+    }
+  }
 
   onFilterChange() {
     const randomBonus = Math.floor(Math.random() * 500);
@@ -35,8 +68,8 @@ months = ['January', 'February', 'March', 'April'];
     this.payslipDetails.set({
       basic: newBasic,
       allowances: 1000 + randomBonus,
-      deductions: 200 + (randomBonus / 2),
-      net: newBasic + (1000 + randomBonus) - (200 + (randomBonus / 2))
+      deductions: 200 + randomBonus / 2,
+      net: newBasic + (1000 + randomBonus) - (200 + randomBonus / 2),
     });
   }
 }

@@ -1,4 +1,5 @@
 <div
+  [attr.dir]="currentLang === 'ar' ? 'ltr' : null"
   class="virtual-keyboard bg-gray-100 dark:bg-slate-900/50 p-4 rounded-[2rem] select-none border border-gray-200 dark:border-slate-700 shadow-inner transition-colors duration-500">
 
   <div *ngFor="let row of keys" class="flex justify-center mb-1">
