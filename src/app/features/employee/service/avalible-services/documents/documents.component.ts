@@ -86,12 +86,17 @@ export class DocumentsComponent implements OnInit {
         this.requestsHistory.set(filteredData);
   }
 
-  downloadFile(req: HRLettersModel) {
-    const filePath = 'assets/salary-certificate.pdf'; 
-    const link = document.createElement('a');
-    link.href = filePath;
-    link.download = `${req.type}-${req.dateRequested}.pdf`;
-    link.click();
+  downloadFile(req: any) {
+    const typeMapping: { [key: string]: string } = {
+      'Experience Certificate': 'experience',
+      'Salary Definition Letter': 'payslip'
+    };
+    const empId = req.requester.employeeId;
+    const docType = typeMapping[req.type] || 'unknown';
+    const lang = req.language?.toLowerCase() === 'arabic' ? 'AR' : 'EN';
+    const fileName = `${empId}-${docType}-${lang}.docx`;
+    const fullPath = `C:/HRSystemDocuments/${fileName}`;
+    console.log(fullPath);
   }
 
   @HostListener('window:storage', ['$event'])
