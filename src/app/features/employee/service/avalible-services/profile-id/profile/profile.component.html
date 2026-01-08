@@ -1,152 +1,137 @@
-<section class="px-6 py-6 mt-12">
-  <div class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-200">
-    <!-- Header -->
-    <div class="flex items-center gap-3">
-      <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
-        <i class="fa-regular fa-user text-lg"></i>
+<section class="px-6 py-6 mt-12 transition-colors duration-500 relative z-10">
+  <div
+    class="rounded-[2.5rem] bg-white dark:bg-slate-800 p-8 shadow-xl dark:shadow-none ring-1 ring-gray-100 dark:ring-slate-700">
+
+    <div class="flex items-center gap-4 mb-10">
+      <span
+        class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400">
+        <i class="fa-regular fa-user-gear text-xl"></i>
       </span>
       <div>
-        <h2 class="text-lg font-semibold text-gray-900">My Profile</h2>
-        <p class="text-sm text-gray-500">View your information and manage your PIN.</p>
+        <h2 class="text-2xl font-black text-gray-900 dark:text-white tracking-tight">My Profile</h2>
+        <p class="text-sm text-gray-500 dark:text-slate-400 font-medium">View your information and manage your PIN.</p>
       </div>
     </div>
 
-    <div class="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-3">
-      <!-- Left: Profile Card -->
-      <div class="lg:col-span-1 rounded-2xl border border-gray-200 bg-white p-6">
-        <div class="flex items-center gap-4">
-          <img [src]="employee.avatarUrl" alt="Employee avatar"
-            class="h-16 w-16 rounded-2xl object-cover ring-1 ring-gray-200" />
+<div class="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-3">
 
-          <div class="min-w-0">
-            <p class="truncate text-lg font-semibold text-gray-900">{{ employee.name }}</p>
-            <p class="text-sm text-gray-500">{{ employee.jobTitle }}</p>
-          </div>
-        </div>
-
-        <div class="mt-5 space-y-3">
-          <div class="flex items-center justify-between gap-3">
-            <p class="text-sm text-gray-500">Employee ID</p>
-            <p class="text-sm font-semibold text-gray-900">{{ employee.employeeId }}</p>
-          </div>
-
-          <div class="flex items-center justify-between gap-3">
-            <p class="text-sm text-gray-500">Department</p>
-            <p class="text-sm font-semibold text-gray-900">{{ employee.department }}</p>
-          </div>
-
-          <div class="flex items-center justify-between gap-3">
-            <p class="text-sm text-gray-500">Hire Date</p>
-            <p class="text-sm font-semibold text-gray-900">{{ employee.hireDate }}</p>
-          </div>
-
-          <div class="flex items-center justify-between gap-3">
-            <p class="text-sm text-gray-500">Direct Manager</p>
-            <p class="text-sm font-semibold text-gray-900">{{ employee.manager }}</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right: Change PIN Card -->
-      <div class="lg:col-span-2 rounded-2xl border border-gray-200 bg-white p-6">
-        <div class="flex items-center justify-between">
-          <div>
-            <h3 class="text-base font-semibold text-gray-900">Change PIN</h3>
-            <p class="mt-1 text-sm text-gray-500">Enter your current PIN then set a new one.</p>
-          </div>
-        </div>
-
-        <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <!-- Current PIN -->
-          <div>
-            <label class="mb-2 block text-sm font-medium text-gray-900">Current PIN</label>
-          <input
-  type="password"
-  readonly
-  maxlength="4"
-  [(ngModel)]="pinForm.currentPin"
-  name="currentPin"
-  (focus)="showKeyboardCurrent = true"
-  (blur)="hideKeyboardDelayed('current')"
-  class="h-10 w-full rounded-lg border border-gray-200 bg-gray-50 px-3 text-sm text-gray-900
-         focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-  placeholder="Enter current PIN"
-/>
-            <div *ngIf="showKeyboardCurrent" class="mt-2">
-              <app-virtual-keyboard mode="numbers" (keyPress)="appendKey('currentPin', $event)"
-                (backspace)="backspace('currentPin')" (clear)="clearInput('currentPin')"></app-virtual-keyboard>
-            </div>
-          </div>
-
-          <!-- New PIN -->
-          <div>
-            <label class="mb-2 block text-sm font-medium text-gray-900">New PIN</label>
-           <input
-  type="password"
-  readonly
-  maxlength="4"
-  [(ngModel)]="pinForm.newPin"
-  name="newPin"
-  (focus)="showKeyboardNew = true"
-  (blur)="hideKeyboardDelayed('new')"
-  class="h-10 w-full rounded-lg border border-gray-200 bg-gray-50 px-3 text-sm text-gray-900
-         focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-  placeholder="Enter new PIN"
-/>
-            <div *ngIf="showKeyboardNew" class="mt-2">
-              <app-virtual-keyboard mode="numbers" (keyPress)="appendKey('newPin', $event)"
-                (backspace)="backspace('newPin')" (clear)="clearInput('newPin')"></app-virtual-keyboard>
-            </div>
-          </div>
-
-          <!-- Confirm PIN -->
-          <div class="sm:col-span-2">
-            <label class="mb-2 block text-sm font-medium text-gray-900">Confirm New PIN</label>
-            <input
-  type="password"
-  readonly
-  maxlength="4"
-  [(ngModel)]="pinForm.confirmPin"
-  name="confirmPin"
-  (focus)="showKeyboardConfirm = true"
-  (blur)="hideKeyboardDelayed('confirm')"
-  class="h-10 w-full rounded-lg border border-gray-200 bg-gray-50 px-3 text-sm text-gray-900
-         focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-  placeholder="Confirm new PIN"
-/>
-            <div *ngIf="showKeyboardConfirm" class="mt-2">
-              <app-virtual-keyboard mode="numbers" (keyPress)="appendKey('confirmPin', $event)"
-                (backspace)="backspace('confirmPin')" (clear)="clearInput('confirmPin')"></app-virtual-keyboard>
-            </div>
-          </div>
-        </div>
-
-
-
-        <div class="mt-6 flex items-center justify-end gap-3">
-          <button type="button"
-            class="rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-50"
-            (click)="pinForm = { currentPin: '', newPin: '', confirmPin: '' }">
-            Cancel
-          </button>
-          <!-- Error -->
-          <div *ngIf="pinError" class="mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700
-                    transition-opacity duration-300">
-            {{ pinError }}
-          </div>
-
-          <!-- Success -->
-          <div *ngIf="pinSuccess"
-            class="mt-4 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
-            {{ pinSuccess }}
-          </div>
-          <button type="button" class="rounded-full bg-blue-700 px-5 py-2.5 text-sm font-semibold text-white
-                   shadow-sm hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-300"
-            (click)="savePin()">
-            Save
-          </button>
-        </div>
+  <div class="lg:col-span-1 rounded-[2rem] border border-gray-100 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-900/40 p-8">
+    <div class="flex items-center gap-4">
+      <img [src]="employee.avatarUrl" alt="Employee avatar"
+        class="h-16 w-16 rounded-2xl object-cover ring-2 ring-white dark:ring-slate-700 shadow-md" />
+      <div class="min-w-0">
+        <p class="truncate text-lg font-black text-gray-900 dark:text-white">{{ employee.name }}</p>
+        <p class="text-sm font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+          {{ employee.jobTitle }}
+        </p>
       </div>
     </div>
+
+    <div class="mt-8 space-y-4 border-t border-gray-100 dark:border-slate-700 pt-6">
+      <div class="flex items-center justify-between gap-3">
+        <p class="text-[10px] font-black uppercase text-gray-400 dark:text-slate-500 tracking-widest">Employee ID</p>
+        <p class="text-sm font-bold text-gray-700 dark:text-slate-200">{{ employee.employeeId }}</p>
+      </div>
+      <div class="flex items-center justify-between gap-3">
+        <p class="text-[10px] font-black uppercase text-gray-400 dark:text-slate-500 tracking-widest">Department</p>
+        <p class="text-sm font-bold text-gray-700 dark:text-slate-200">{{ employee.department }}</p>
+      </div>
+      <div class="flex items-center justify-between gap-3">
+        <p class="text-[10px] font-black uppercase text-gray-400 dark:text-slate-500 tracking-widest">Hire Date</p>
+        <p class="text-sm font-bold text-gray-700 dark:text-slate-200">{{ employee.hireDate }}</p>
+      </div>
+      <div class="flex items-center justify-between gap-3">
+        <p class="text-[10px] font-black uppercase text-gray-400 dark:text-slate-500 tracking-widest">Direct Manager</p>
+        <p class="text-sm font-bold text-gray-700 dark:text-slate-200">{{ employee.manager }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="lg:col-span-2 rounded-[2rem] border border-gray-100 dark:border-slate-700 bg-white dark:bg-slate-900/20 p-8">
+    <div class="mb-8">
+      <h3 class="text-lg font-black text-gray-900 dark:text-white tracking-tight">Change Security PIN</h3>
+      <p class="mt-1 text-sm text-gray-500 dark:text-slate-400 font-medium">Enter your current PIN then set a new one.</p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 relative">
+      
+      <div class="space-y-2 relative">
+    <label class="ml-1 block text-[11px] font-black uppercase text-gray-400 dark:text-slate-500 tracking-widest">Current PIN</label>
+    <input type="password" readonly maxlength="4" [(ngModel)]="pinForm.currentPin" name="currentPin"
+      (focus)="showKeyboardCurrent = true" (blur)="hideKeyboardDelayed('current')"
+      class="h-14 w-full rounded-2xl border border-gray-100 dark:border-slate-700 bg-gray-50 dark:bg-slate-900 px-6 text-lg font-black text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all tracking-[0.8em]"
+      placeholder="****" />
+    
+    <div *ngIf="showKeyboardCurrent"
+      class="absolute left-0 z-[100] mt-3 p-8 bg-white dark:bg-slate-800 rounded-[2.5rem] border border-gray-100 dark:border-slate-700 shadow-2xl w-[180%] min-w-[450px] animate-in fade-in zoom-in-95 transition-all">
+    
+      <div class="text-2xl">
+        <app-virtual-keyboard mode="numbers" (keyPress)="appendKey('currentPin', $event)"
+          (backspace)="backspace('currentPin')" (clear)="clearInput('currentPin')">
+        </app-virtual-keyboard>
+      </div>
+    
+    </div>
+  </div>
+
+  <div class="space-y-2 relative">
+    <label class="ml-1 block text-[11px] font-black uppercase text-gray-400 dark:text-slate-500 tracking-widest">New PIN</label>
+    <input type="password" readonly maxlength="4" [(ngModel)]="pinForm.newPin" name="newPin"
+      (focus)="showKeyboardNew = true" (blur)="hideKeyboardDelayed('new')"
+      class="h-14 w-full rounded-2xl border border-gray-100 dark:border-slate-700 bg-gray-50 dark:bg-slate-900 px-6 text-lg font-black text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all tracking-[0.8em]"
+      placeholder="****" />
+
+    <div *ngIf="showKeyboardNew"
+      class="absolute right-0 z-[100] mt-3 p-6 bg-white dark:bg-slate-800 rounded-[2.5rem] border border-gray-100 dark:border-slate-700 shadow-2xl w-[180%] min-w-[450px] animate-in fade-in zoom-in-95">
+      <div class="text-2xl">
+        <app-virtual-keyboard mode="numbers" (keyPress)="appendKey('newPin', $event)"
+          (backspace)="backspace('newPin')" (clear)="clearInput('newPin')">
+        </app-virtual-keyboard>
+      </div>
+    </div>
+  </div>
+
+  <div class="sm:col-span-2 space-y-2 relative">
+    <label class="ml-1 block text-[11px] font-black uppercase text-gray-400 dark:text-slate-500 tracking-widest">Confirm New PIN</label>
+    <input type="password" readonly maxlength="4" [(ngModel)]="pinForm.confirmPin" name="confirmPin"
+      (focus)="showKeyboardConfirm = true" (blur)="hideKeyboardDelayed('confirm')"
+      class="h-14 w-full rounded-2xl border border-gray-100 dark:border-slate-700 bg-gray-50 dark:bg-slate-900 px-6 text-lg font-black text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all tracking-[0.8em]"
+      placeholder="****" />
+
+    <div *ngIf="showKeyboardConfirm"
+      class="absolute left-0 right-0 z-[100] mt-3 p-6 bg-white dark:bg-slate-800 rounded-[2.5rem] border border-gray-100 dark:border-slate-700 shadow-2xl animate-in fade-in zoom-in-95">
+      <div class="text-2xl">
+        <app-virtual-keyboard mode="numbers" (keyPress)="appendKey('confirmPin', $event)"
+          (backspace)="backspace('confirmPin')" (clear)="clearInput('confirmPin')">
+        </app-virtual-keyboard>
+      </div>
+    </div>
+  </div>
+
+    </div>
+
+    <div class="mt-8 pt-8 border-t border-gray-50 dark:border-slate-800">
+      <div class="mb-6">
+        <div *ngIf="pinError" class="rounded-xl border border-red-100 dark:border-red-900/30 bg-red-50 dark:bg-red-900/20 px-4 py-3 text-xs font-bold text-red-600 dark:text-red-400 flex items-center gap-2">
+          <i class="fa-solid fa-triangle-exclamation"></i> {{ pinError }}
+        </div>
+        <div *ngIf="pinSuccess" class="rounded-xl border border-green-100 dark:border-green-900/30 bg-green-50 dark:bg-green-900/20 px-4 py-3 text-xs font-bold text-green-600 dark:text-green-400 flex items-center gap-2">
+          <i class="fa-solid fa-check-circle"></i> {{ pinSuccess }}
+        </div>
+      </div>
+
+      <div class="flex items-center justify-end gap-4">
+        <button type="button" class="px-6 py-3 text-xs font-black uppercase tracking-widest text-gray-400 hover:text-gray-600 dark:hover:text-slate-200 transition-colors"
+          (click)="pinForm = { currentPin: '', newPin: '', confirmPin: '' }">
+          Cancel
+        </button>
+        <button type="button" class="rounded-2xl bg-blue-700 dark:bg-blue-600 px-10 py-3.5 text-xs font-black text-white uppercase tracking-widest shadow-xl shadow-blue-200 dark:shadow-none hover:scale-105 active:scale-95 transition-all"
+          (click)="savePin()">
+          Save Changes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
   </div>
 </section>

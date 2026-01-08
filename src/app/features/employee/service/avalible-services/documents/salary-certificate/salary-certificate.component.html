@@ -1,37 +1,108 @@
-<div class="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-  <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg p-6 relative">
-    <button class="absolute top-4 right-4 text-gray-400 hover:text-gray-600" (click)="closeModal()">
-      ✕
+<div
+  class="fixed inset-0 bg-slate-900/60 dark:bg-black/80 backdrop-blur-sm flex items-center justify-center z-[9999] transition-all duration-300 px-4">
+
+  <div
+    class="bg-white dark:bg-slate-800 rounded-[2.5rem] shadow-2xl w-full max-w-lg p-8 relative border border-white dark:border-slate-700 transition-all transform scale-100">
+
+    <button class="absolute top-6 right-6 text-gray-400 hover:text-gray-600 dark:hover:text-white transition-colors p-2"
+      (click)="closeModal()">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
     </button>
-    <h2 class="text-xl font-semibold mb-6">
-      Request Salary Certificate
-    </h2>
 
-    <form class="space-y-5">
+    <div class="mb-8">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="p-3 bg-emerald-50 dark:bg-emerald-900/30 rounded-2xl">
+          <svg class="w-6 h-6 text-emerald-600 dark:text-emerald-400" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.97 0-1.82 1.28-3.26 3.11-3.66V3.33h2.67v1.94c1.44.3 2.58 1.23 2.96 2.81l-1.88.71c-.24-.82-.79-1.54-2.22-1.54-1.4 0-2.13.66-2.13 1.51 0 .85.65 1.39 2.52 1.85 2.81.7 4.35 1.9 4.35 4.26 0 2.11-1.49 3.5-3.51 3.93z" />
+          </svg>
+        </span>
+        <h2 class="text-2xl font-black text-gray-800 dark:text-white tracking-tight">
+          Salary Certificate
+        </h2>
+      </div>
+      <p class="text-sm text-gray-500 dark:text-slate-400 font-medium ml-1">Generate an official letter with your
+        financial details.</p>
+    </div>
+
+    <form class="space-y-6">
       <div>
-        <label class="block text-sm font-medium mb-1">Language</label>
-        <select #lang class="w-full rounded-lg bg-gray-50 border px-4 py-2.5">
-          <option>Select language</option>
-          <option>English</option>
-          <option>Arabic</option>
-        </select>
+        <label class="block text-[11px] font-black uppercase text-gray-400 dark:text-slate-500 mb-2 ml-1 tracking-widest">
+          Select Language
+        </label>
+
+        <div class="relative">
+          <button type="button" (click)="langOpen = !langOpen"
+            class="flex h-14 w-full items-center justify-between rounded-2xl border border-gray-100 dark:border-slate-700 bg-gray-50 dark:bg-slate-900 px-5 text-sm font-bold text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm">
+
+            <div class="flex items-center gap-3">
+              <i class="fa-solid fa-globe text-blue-500 text-base"></i>
+              <span>{{ selectedLanguage || 'Select Language' }}</span>
+            </div>
+
+            <i class="fa-solid fa-chevron-down text-xs text-gray-400 transition-transform duration-300"
+              [class.rotate-180]="langOpen"></i>
+          </button>
+
+          <div *ngIf="langOpen"
+            class="absolute left-0 right-0 z-[9999] mt-2 overflow-hidden rounded-[1.5rem] border border-gray-100 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+
+            <div class="py-2">
+              <button type="button" (click)="selectLanguage('English')" class="flex w-full items-center gap-3 px-5 py-4 text-left text-sm font-bold transition-all
+                hover:bg-blue-50 dark:hover:bg-slate-700/50 group">
+                <span
+                  class="w-8 h-8 rounded-full bg-gray-100 dark:bg-slate-900 flex items-center justify-center text-xs group-hover:bg-blue-100 dark:group-hover:bg-blue-900/40">🇺🇸</span>
+                <span class="text-gray-700 dark:text-slate-300 group-hover:text-blue-700 dark:group-hover:text-white">English</span>
+                <i *ngIf="selectedLanguage === 'English'" class="fa-solid fa-check ml-auto text-blue-500"></i>
+              </button>
+
+              <button type="button" (click)="selectLanguage('Arabic')" class="flex w-full items-center gap-3 px-5 py-4 text-left text-sm font-bold transition-all
+                hover:bg-blue-50 dark:hover:bg-slate-700/50 group border-t border-gray-50 dark:border-slate-700/50">
+                <span
+                  class="w-8 h-8 rounded-full bg-gray-100 dark:bg-slate-900 flex items-center justify-center text-xs group-hover:bg-blue-100 dark:group-hover:bg-blue-900/40">🇪🇬</span>
+                <span class="text-gray-700 dark:text-slate-300 group-hover:text-blue-700 dark:group-hover:text-white">Arabic</span>
+                <i *ngIf="selectedLanguage === 'Arabic'" class="fa-solid fa-check ml-auto text-blue-500"></i>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div>
-        <label class="block text-sm font-medium mb-1">Directed To</label>
-        <input #target type="text" placeholder="e.g. Banque Misr" class="w-full rounded-lg bg-gray-50 border px-4 py-2.5" />
-      </div>
+        <label
+          class="block text-[11px] font-black uppercase text-gray-400 dark:text-slate-500 mb-2 ml-1 tracking-widest">Directed
+          To</label>
+          <div class="relative">
+        <input #target type="text" readonly [value]="directedTo" placeholder="e.g. Commercial International Bank (CIB)"
+          (focus)="keyboardVisibleTarget = true" (blur)="hideKeyboardTarget()"
+            class="w-full rounded-xl bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 px-4 py-3 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all placeholder:text-gray-300 dark:placeholder:text-slate-600" />
+            <div *ngIf="keyboardVisibleTarget"
+              class="absolute left-0 right-0 z-[50] mt-2 p-2 bg-gray-100 dark:bg-slate-800 rounded-xl shadow-2xl border dark:border-slate-700">
+              <app-virtual-keyboard mode="letters" (keyPress)="appendKey('directedTo', $event)"
+                (backspace)="backspace('directedTo')" (clear)="clearInput('directedTo')">
+              </app-virtual-keyboard>
+            </div>
+          </div>
+          </div>
 
-      <div class="flex justify-end gap-3 pt-4">
-        <button type="button" class="px-4 py-2 border rounded-lg" (click)="closeModal()">
+      <div class="flex items-center justify-end gap-3 pt-6 border-t border-gray-50 dark:border-slate-700/50">
+        <button type="button"
+          class="px-6 py-3 font-bold text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:hover:text-slate-300 transition-colors uppercase text-xs tracking-widest"
+          (click)="closeModal()">
           Cancel
         </button>
 
-        <button type="button" class="px-5 py-2 bg-blue-600 text-white rounded-lg" (click)="onSubmit(lang.value, target.value)">
+        <button type="button"
+          class="flex items-center gap-2 px-8 py-3.5 bg-gradient-to-r from-emerald-500 to-teal-600 dark:from-emerald-600 dark:to-teal-700 text-white font-black rounded-2xl shadow-xl shadow-emerald-100 dark:shadow-none hover:scale-[1.03] active:scale-95 transition-all uppercase text-xs tracking-widest"
+          (click)="onSubmit(selectedLanguage, target.value)">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
           Submit Request
         </button>
       </div>
     </form>
-
   </div>
 </div>

@@ -1,87 +1,109 @@
-<div class="p-6 max-w-4xl mx-auto">
+<div class="p-6 max-w-4xl mx-auto transition-colors duration-500 relative z-10">
     <div class="flex items-center mb-8">
-        <button class="text-blue-600 hover:underline flex items-center gap-2">
-        </button>
-        <h1 class="text-2xl font-bold text-gray-800 ml-4">Financial Details</h1>
+        <h1 class="text-2xl font-black text-gray-800 dark:text-white ml-2 tracking-tight">Financial Details</h1>
     </div>
 
-    <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm mb-6">
-        <div class="flex items-center gap-3 mb-4">
-            <div class="p-2 bg-green-100 rounded-lg">
-                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z">
-                    </path>
+    <div
+        class="bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 rounded-[2rem] p-8 shadow-sm dark:shadow-none mb-8 transition-all">
+        <div class="flex items-center gap-4 mb-6">
+            <div class="p-3 bg-emerald-50 dark:bg-emerald-900/30 rounded-2xl">
+                <svg class="w-6 h-6 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                 </svg>
             </div>
-            <h2 class="text-lg font-semibold">Bank Account Details</h2>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
             <div>
-                <p class="text-gray-500">Bank Name</p>
-                <p class="font-medium text-gray-800">{{ bankInfo().bankName }}</p>
+                <h2 class="text-lg font-bold text-gray-800 dark:text-white">Bank Account Details</h2>
+                <p class="text-xs text-gray-400 dark:text-slate-500 uppercase font-black tracking-widest">Payroll
+                    Information</p>
             </div>
-            <div>
-                <p class="text-gray-500">Account Number</p>
-                <p class="font-medium text-gray-800">{{ bankInfo().accountNumber }}</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-gray-50 dark:bg-slate-900/50 p-4 rounded-2xl border border-gray-50 dark:border-slate-700">
+                <p class="text-[10px] font-black uppercase text-gray-400 dark:text-slate-500 mb-1 tracking-widest">Bank
+                    Name</p>
+                <p class="font-bold text-gray-800 dark:text-slate-200">{{ bankInfo().bankName }}</p>
+            </div>
+            <div class="bg-gray-50 dark:bg-slate-900/50 p-4 rounded-2xl border border-gray-50 dark:border-slate-700">
+                <p class="text-[10px] font-black uppercase text-gray-400 dark:text-slate-500 mb-1 tracking-widest">
+                    Account Number</p>
+                <p class="font-mono font-bold text-gray-800 dark:text-slate-200 tracking-wider">{{
+                    bankInfo().accountNumber }}</p>
             </div>
         </div>
     </div>
 
-    <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-        <h2 class="text-lg font-semibold mb-6">Monthly Pay-slip</h2>
+    <div
+        class="bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 rounded-[2rem] p-8 shadow-sm dark:shadow-none transition-all">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+            <h2 class="text-xl font-black text-gray-800 dark:text-white tracking-tight">Monthly Pay-slip</h2>
 
-        <div class="flex flex-wrap gap-4 mb-8">
-            <div class="w-full md:w-40">
-                <label class="block mb-2 text-sm font-medium text-gray-700">Select Year</label>
-                <select [(ngModel)]="selectedYear" (change)="onFilterChange()"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                    @for (year of years; track year) {
-                    <option [value]="year">{{year}}</option>
-                    }
-                </select>
-            </div>
-        
-            <div class="w-full md:w-40">
-                <label class="block mb-2 text-sm font-medium text-gray-700">Select Month</label>
-                <select [(ngModel)]="selectedMonth" (change)="onFilterChange()"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                    @for (month of months; track month) {
-                    <option [value]="month">{{month}}</option>
-                    }
-                </select>
-            </div>
-        
-            <div class="mt-auto py-2">
-                <p class="text-xs text-gray-400 italic">Showing data for: {{selectedMonth()}} {{selectedYear()}}</p>
+            <div class="flex flex-wrap gap-3">
+                <div class="min-w-[120px]">
+                    <select [(ngModel)]="selectedYear" (change)="onFilterChange()"
+                        class="bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 text-gray-900 dark:text-white text-xs font-bold rounded-xl focus:ring-2 focus:ring-blue-500 block w-full p-3 outline-none transition-all">
+                        @for (year of years; track year) {
+                        <option [value]="year">{{year}}</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="min-w-[140px]">
+                    <select [(ngModel)]="selectedMonth" (change)="onFilterChange()"
+                        class="bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 text-gray-900 dark:text-white text-xs font-bold rounded-xl focus:ring-2 focus:ring-blue-500 block w-full p-3 outline-none transition-all">
+                        @for (month of months; track month) {
+                        <option [value]="month">{{month}}</option>
+                        }
+                    </select>
+                </div>
             </div>
         </div>
 
-        <div class="relative overflow-x-auto border rounded-xl">
-            <table class="w-full text-sm text-left text-gray-500">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+        <div class="mb-4 flex items-center gap-2">
+            <span class="relative flex h-2 w-2">
+                <span
+                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+            </span>
+            <p class="text-xs text-gray-400 dark:text-slate-500 font-bold italic uppercase tracking-tighter">
+                Period: {{selectedMonth()}} {{selectedYear()}}
+            </p>
+        </div>
+
+        <div class="relative overflow-hidden border border-gray-100 dark:border-slate-700 rounded-2xl">
+            <table class="w-full text-sm text-left">
+                <thead
+                    class="text-[10px] font-black uppercase text-gray-400 dark:text-slate-500 bg-gray-50 dark:bg-slate-900/80 border-b border-gray-100 dark:border-slate-700 tracking-widest">
                     <tr>
-                        <th class="px-6 py-3">Description</th>
-                        <th class="px-6 py-3 text-right">Amount (EGP)</th>
+                        <th class="px-6 py-4">Description</th>
+                        <th class="px-6 py-4 text-right">Amount (EGP)</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y">
-                    <tr>
-                        <td class="px-6 py-4">Basic Salary</td>
-                        <td class="px-6 py-4 text-right font-medium text-gray-900">{{ payslipDetails().basic }}</td>
+                <tbody class="divide-y divide-gray-50 dark:divide-slate-700 transition-colors">
+                    <tr class="hover:bg-gray-50/50 dark:hover:bg-slate-700/20 transition-colors">
+                        <td class="px-6 py-5 font-semibold text-gray-700 dark:text-slate-300">Basic Salary</td>
+                        <td class="px-6 py-5 text-right font-bold text-gray-900 dark:text-white">{{
+                            payslipDetails().basic }}</td>
                     </tr>
-                    <tr>
-                        <td class="px-6 py-4 text-gray-600">Allowances (بدلات)</td>
-                        <td class="px-6 py-4 text-right font-medium text-green-600">+{{ payslipDetails().allowances }}
+                    <tr class="hover:bg-gray-50/50 dark:hover:bg-slate-700/20 transition-colors">
+                        <td class="px-6 py-5 text-gray-600 dark:text-slate-400">Allowances (بدلات)</td>
+                        <td class="px-6 py-5 text-right font-black text-emerald-600 dark:text-emerald-400">+{{
+                            payslipDetails().allowances }}</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50/50 dark:hover:bg-slate-700/20 transition-colors">
+                        <td class="px-6 py-5 text-gray-600 dark:text-slate-400">Deductions (استقطاعات)</td>
+                        <td class="px-6 py-5 text-right font-black text-red-600 dark:text-red-400">-{{
+                            payslipDetails().deductions }}</td>
+                    </tr>
+                    <tr class="bg-blue-50/50 dark:bg-blue-900/20">
+                        <td class="px-6 py-6 font-black text-blue-800 dark:text-blue-300 text-base">Net Salary (الصافي)
                         </td>
-                    </tr>
-                    <tr>
-                        <td class="px-6 py-4 text-gray-600">Deductions (استقطاعات)</td>
-                        <td class="px-6 py-4 text-right font-medium text-red-600">-{{ payslipDetails().deductions }}
+                        <td
+                            class="px-6 py-6 text-right font-black text-blue-800 dark:text-blue-300 text-xl tracking-tighter">
+                            {{ payslipDetails().net }}
                         </td>
-                    </tr>
-                    <tr class="bg-blue-50">
-                        <td class="px-6 py-4 font-bold text-blue-800">Net Salary (الصافي)</td>
-                        <td class="px-6 py-4 text-right font-bold text-blue-800">{{ payslipDetails().net }}</td>
                     </tr>
                 </tbody>
             </table>

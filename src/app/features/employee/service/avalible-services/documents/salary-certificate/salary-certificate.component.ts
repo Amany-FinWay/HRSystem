@@ -5,14 +5,21 @@ import { HRLettersModel } from '../../../../../../shared/models/interfaces/HRLet
 import { HRLetterRequestType } from '../../../../../../shared/models/types/HRLetterRequestType.type';
 import { Language } from '../../../../../../shared/models/types/Language.type';
 import { RequestsStatus } from '../../../../../../shared/models/types/RequestsStatus.type';
+import { CommonModule } from '@angular/common';
+import { VirtualKeyboardComponent } from '../../../../../../shared/components/virtual-keyboard/virtual-keyboard.component';
 
 @Component({
   selector: 'app-salary-certificate',
-  imports: [],
+  imports: [CommonModule, VirtualKeyboardComponent],
   templateUrl: './salary-certificate.component.html',
   styleUrl: './salary-certificate.component.scss'
 })
 export class SalaryCertificateComponent {
+  langOpen: boolean = false;
+  selectedLanguage: string = 'English';
+  keyboardVisibleTarget: boolean = false;
+  showKeyboardTarget: boolean = false;
+  directedTo: string = '';
 
   constructor(
     private spinnerToasterService: SpinnerToasterService,
@@ -22,6 +29,33 @@ export class SalaryCertificateComponent {
 
   closeModal() {
     this.close.emit();
+  }
+
+  selectLanguage(lang: string) {
+    this.selectedLanguage = lang;
+    this.langOpen = false;
+    console.log('Language changed to:', lang);
+  }
+
+  appendKey(fieldName: string, char: any) {
+    (this as any)[fieldName] = ((this as any)[fieldName] || '') + char;
+  }
+
+  backspace(fieldName: string) {
+    const currentVal = (this as any)[fieldName];
+    if (currentVal) {
+      (this as any)[fieldName] = currentVal.slice(0, -1);
+    }
+  }
+
+  clearInput(fieldName: string) {
+    (this as any)[fieldName] = '';
+  }
+
+  hideKeyboardTarget() {
+    setTimeout(() => {
+      this.keyboardVisibleTarget = false;
+    }, 200);
   }
 
   onSubmit(selectedLanguage: string, directedTarget: string) {

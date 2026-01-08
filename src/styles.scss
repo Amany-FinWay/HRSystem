@@ -3,7 +3,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom styles */
 body {
-  font-family: 'Inter', sans-serif;
+  @apply transition-colors duration-300 bg-gray-50 text-gray-900;
+}
+
+/* في حالة الدارك مود، غير الخلفية والخط لكل الصفحة */
+.dark body {
+  @apply bg-slate-900 text-gray-100;
 }

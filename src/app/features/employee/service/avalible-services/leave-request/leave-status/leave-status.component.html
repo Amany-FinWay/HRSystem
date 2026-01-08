@@ -1,84 +1,90 @@
-<section class="px-6 py-6 mt-12">
-  <div class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-200">
-    <!-- Header -->
-    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-      <div class="flex items-center gap-3">
-        <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
-          <i class="fa-regular fa-calendar text-lg"></i>
+<section class="px-6 py-6 mt-12 transition-colors duration-500">
+  <div
+    class="rounded-[2.5rem] bg-white dark:bg-slate-800 p-8 shadow-xl dark:shadow-none ring-1 ring-gray-100 dark:ring-slate-700">
+
+    <div class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between mb-8">
+      <div class="flex items-center gap-4">
+        <span
+          class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 shadow-sm">
+          <i class="fa-regular fa-calendar-check text-xl"></i>
         </span>
-        <h2 class="text-lg font-semibold text-gray-900">Leave Requests</h2>
+        <div>
+          <h2 class="text-2xl font-black text-gray-900 dark:text-white tracking-tight">Leave Management</h2>
+          <p class="text-sm text-gray-400 dark:text-slate-500 font-medium">Track your balances and history</p>
+        </div>
       </div>
 
-      <button
-        type="button"
-        (click)="openRequestLeave()"
-        class="inline-flex items-center justify-center gap-2 rounded-full bg-blue-700 px-4 py-2 text-sm font-semibold text-white
-               shadow-sm transition hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-300"
-      >
-        <i class="fa-solid fa-plus"></i>
-        Request Leave
+      <button type="button" (click)="openRequestLeave()"
+        class="inline-flex items-center justify-center gap-2 rounded-2xl bg-blue-700 dark:bg-blue-600 px-6 py-3 text-sm font-black text-white
+               shadow-lg shadow-blue-200 dark:shadow-none transition-all hover:scale-105 active:scale-95 focus:outline-none">
+        <i class="fa-solid fa-plus text-xs"></i>
+        New Request
       </button>
     </div>
 
-    <!-- Balance cards -->
-    <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      <div
-        *ngFor="let b of balanceCards"
-        class="rounded-2xl border border-gray-200 bg-white p-5"
-      >
-        <div class="flex items-center gap-4">
-          <div class="flex h-12 w-12 items-center justify-center rounded-2xl" [ngClass]="b.iconBgClass">
-            <i class="text-xl" [class]="b.iconClass"></i>
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div *ngFor="let b of balanceCards"
+        class="rounded-3xl border border-gray-100 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-900/50 p-6 hover:border-blue-300 dark:hover:border-blue-500 transition-all group">
+        <div class="flex items-center gap-5">
+          <div
+            class="flex h-14 w-14 items-center justify-center rounded-2xl shadow-sm transition-transform group-hover:scale-110"
+            [ngClass]="b.iconBgClass">
+            <i class="text-2xl" [class]="b.iconClass"></i>
           </div>
 
           <div class="flex-1">
-            <p class="text-sm text-gray-500">{{ b.title }}</p>
-            <div class="flex items-baseline gap-2">
-              <p class="text-2xl font-bold text-gray-900">{{ b.remaining }} days</p>
+            <p class="text-[11px] font-black uppercase text-gray-400 dark:text-slate-500 tracking-widest">{{ b.title }}
+            </p>
+            <div class="flex items-baseline gap-1 mt-1">
+              <p class="text-2xl font-black text-gray-900 dark:text-white">{{ b.remaining }}</p>
+              <span class="text-xs font-bold text-gray-400 dark:text-slate-500">Days</span>
             </div>
-            <p class="text-xs text-gray-400">Remaining</p>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Table -->
-    <div class="mt-6 overflow-x-auto">
-      <table class="w-full text-left text-sm text-gray-700">
-        <thead class="border-b border-gray-200 text-xs font-semibold text-gray-500">
-          <tr>
-            <th class="py-3 pr-4">Leave Type</th>
-            <th class="py-3 pr-4">Start Date</th>
-            <th class="py-3 pr-4">End Date</th>
-            <th class="py-3 pr-4">Days</th>
-            <th class="py-3 pr-4">Status</th>
-            <th class="py-3">Reason</th>
-          </tr>
-        </thead>
+    <div class="mt-10 overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm">
+          <thead
+            class="bg-gray-50/50 dark:bg-slate-900/50 border-y border-gray-100 dark:border-slate-700 text-[10px] font-black uppercase text-gray-400 dark:text-slate-500 tracking-widest">
+            <tr>
+              <th class="py-4 px-4">Leave Type</th>
+              <th class="py-4 px-4">Duration</th>
+              <th class="py-4 px-4 text-center">Days</th>
+              <th class="py-4 px-4 text-center">Status</th>
+              <th class="py-4 px-4">Reason</th>
+            </tr>
+          </thead>
 
-        <tbody class="divide-y divide-gray-200">
-          <tr *ngFor="let row of leaveRows" class="bg-white">
-            <td class="py-4 pr-4 font-semibold text-gray-900">{{ row.type }}</td>
-            <td class="py-4 pr-4">{{ row.startDate }}</td>
-            <td class="py-4 pr-4">{{ row.endDate }}</td>
-            <td class="py-4 pr-4">{{ row.days }}</td>
-            <td class="py-4 pr-4">
-              <span
-                class="inline-flex rounded-full px-3 py-1 text-xs font-semibold"
-                [ngClass]="statusPillClass(row.status)"
-              >
-                {{ row.status }}
-              </span>
-            </td>
-            <td class="py-4">{{ row.reason }}</td>
-          </tr>
-        </tbody>
-      </table>
+          <tbody class="divide-y divide-gray-50 dark:divide-slate-700 transition-colors">
+            <tr *ngFor="let row of leaveRows" class="hover:bg-blue-50/30 dark:hover:bg-slate-700/30 transition-all">
+              <td class="py-5 px-4 font-bold text-gray-900 dark:text-white">{{ row.type }}</td>
+              <td class="py-5 px-4">
+                <div class="flex flex-col">
+                  <span class="text-gray-600 dark:text-slate-300 font-medium">{{ row.startDate }}</span>
+                  <span class="text-[10px] text-gray-400 dark:text-slate-500">To {{ row.endDate }}</span>
+                </div>
+              </td>
+              <td class="py-5 px-4 text-center font-black text-blue-600 dark:text-blue-400">{{ row.days }}</td>
+              <td class="py-5 px-4 text-center">
+                <span
+                  class="inline-flex rounded-xl px-3 py-1 text-[10px] font-black uppercase tracking-wider ring-1 ring-inset"
+                  [ngClass]="statusPillClass(row.status)">
+                  {{ row.status }}
+                </span>
+              </td>
+              <td class="py-5 px-4 text-gray-500 dark:text-slate-400 text-xs italic max-w-[200px] truncate">
+                {{ row.reason || 'No reason provided' }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </section>
-<app-leave-request
-  [open]="showLeaveModal"
-  (close)="closeLeaveModal()"
-  (submit)="handleSubmit($event)"
-></app-leave-request>
+
+<app-leave-request [open]="showLeaveModal" (close)="closeLeaveModal()"
+  (submit)="handleSubmit($event)"></app-leave-request>
