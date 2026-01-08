@@ -256,11 +256,5 @@
       "no_reason": "لا يوجد سبب"
     },
     "empty": "لا توجد طلبات {{status}}"
-  },
-  "documents": {
-    "type": {
-      "salary": "خطاب تعريف بالراتب",
-      "experience": "شهادة خبرة"
-    }
   }
 }

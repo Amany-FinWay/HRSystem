@@ -256,11 +256,5 @@
       "no_reason": "No reason provided"
     },
     "empty": "No {{status}} requests"
-  },
-  "documents": {
-    "type": {
-      "salary": "Salary Definition Letter",
-      "experience": "Experience Certificate"
-    }
   }
 }
