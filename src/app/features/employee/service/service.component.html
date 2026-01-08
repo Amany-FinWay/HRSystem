@@ -1,36 +1,44 @@
 <section class="bg-transparent transition-colors duration-500">
   @if (showGreeting()) {
-  <div [class.opacity-0]="!showGreeting()"
-    class="fixed inset-0 z-[9999] flex items-center justify-center bg-white/40 dark:bg-slate-950/60 backdrop-blur-md transition-all duration-700 ease-in-out px-4">
-
+  <div
+    [class.opacity-0]="!showGreeting()"
+    class="fixed inset-0 z-[9999] flex items-center justify-center bg-white/40 dark:bg-slate-950/60 backdrop-blur-md transition-all duration-700 ease-in-out px-4"
+  >
     <div
-      class="bg-white dark:bg-slate-800 shadow-[0_20px_50px_rgba(8,112,184,0.15)] dark:shadow-none p-10 rounded-[40px] border border-blue-50 dark:border-slate-700 flex flex-col items-center transform transition-all animate-fade-in-up max-w-sm w-full">
+      class="bg-white dark:bg-slate-800 shadow-[0_20px_50px_rgba(8,112,184,0.15)] dark:shadow-none p-10 rounded-[40px] border border-blue-50 dark:border-slate-700 flex flex-col items-center transform transition-all animate-fade-in-up max-w-sm w-full"
+    >
       <div class="relative mb-6">
         <div class="absolute inset-0 bg-blue-100 dark:bg-blue-900/30 rounded-full animate-ping opacity-25"></div>
         <div
-          class="relative w-24 h-24 bg-gradient-to-tr from-blue-600 to-indigo-500 rounded-full flex items-center justify-center text-4xl shadow-xl shadow-blue-200 dark:shadow-none">
-          @if (greetingText().includes('Morning')) { ☀️ }
-          @else if (greetingText().includes('Afternoon')) { 🌤️ }
+          class="relative w-24 h-24 bg-gradient-to-tr from-blue-600 to-indigo-500 rounded-full flex items-center justify-center text-4xl shadow-xl shadow-blue-200 dark:shadow-none"
+        >
+          @if (greetingText() === 'service.greeting_morning') { ☀️ }
+          @else if (greetingText() === 'service.greeting_afternoon') { 🌤️ }
           @else { 🌙 }
         </div>
       </div>
+
       <div class="text-center">
         <h2
-          class="text-3xl font-extrabold bg-gradient-to-r from-blue-700 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
-          {{ greetingText() }},
+          class="text-3xl font-extrabold bg-gradient-to-r from-blue-700 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent"
+        >
+          {{ greetingText() | translate }},
         </h2>
+
         <h3 class="text-2xl font-bold text-gray-800 dark:text-white mt-1 uppercase tracking-tight">
           {{ userName }}
         </h3>
+
         <div class="h-1 w-12 bg-blue-600 dark:bg-blue-500 mx-auto my-4 rounded-full"></div>
-        <p class="text-gray-400 dark:text-slate-400 font-medium text-sm">Have a productive day at work.</p>
+
+        <p class="text-gray-400 dark:text-slate-400 font-medium text-sm">
+          {{ 'service.greeting_note' | translate }}
+        </p>
       </div>
 
       <div class="flex gap-2 mt-6">
-        <span
-          class="w-1.5 h-1.5 bg-blue-600 dark:bg-blue-500 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
-        <span
-          class="w-1.5 h-1.5 bg-blue-500 dark:bg-blue-400 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+        <span class="w-1.5 h-1.5 bg-blue-600 dark:bg-blue-500 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+        <span class="w-1.5 h-1.5 bg-blue-500 dark:bg-blue-400 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
         <span class="w-1.5 h-1.5 bg-blue-400 dark:bg-blue-300 rounded-full animate-bounce"></span>
       </div>
     </div>
@@ -42,22 +50,26 @@
   <div class="mx-auto max-w-6xl px-6 py-10 relative z-10">
     <header class="relative mb-10">
       <h1 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
-        Employee Self-Service
+        {{ 'service.title' | translate }}
       </h1>
       <p class="mt-2 text-base text-gray-500 dark:text-slate-400">
-        Access your personal information and submit requests.
+        {{ 'service.subtitle' | translate }}
       </p>
     </header>
 
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-      <button *ngFor="let card of cards" type="button" (click)="onCardClick(card)"
-        class="group relative w-full rounded-3xl bg-white dark:bg-slate-800 p-6 text-left shadow-md dark:shadow-none ring-1 ring-gray-200 dark:ring-slate-700 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl dark:hover:ring-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
-
+      <button
+        *ngFor="let card of cards"
+        type="button"
+        (click)="onCardClick(card)"
+        class="group relative w-full rounded-3xl bg-white dark:bg-slate-800 p-6 text-left shadow-md dark:shadow-none ring-1 ring-gray-200 dark:ring-slate-700 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl dark:hover:ring-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
         <div class="flex items-center justify-center">
           <div class="rounded-2xl p-2 transition-transform duration-300 group-hover:scale-110">
             <div
               class="flex h-16 w-16 items-center justify-center rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700"
-              [ngClass]="card.iconWrapClass">
+              [ngClass]="card.iconWrapClass"
+            >
               <i class="text-3xl" [class]="card.iconClass"></i>
             </div>
           </div>
@@ -65,17 +77,19 @@
 
         <div class="mt-5 text-center">
           <h3
-            class="text-lg font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-            {{ card.title }}
+            class="text-lg font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
+          >
+            {{ card.title | translate }}
           </h3>
+
           <p class="mt-1 text-sm text-gray-500 dark:text-slate-400 line-clamp-2">
-            {{ card.description }}
+            {{ card.description | translate }}
           </p>
         </div>
 
         <div
-          class="absolute inset-0 rounded-3xl bg-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-        </div>
+          class="absolute inset-0 rounded-3xl bg-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+        ></div>
       </button>
     </div>
   </div>
@@ -83,16 +97,19 @@
 
 <section class="relative z-10 pb-20">
   <div class="mx-auto max-w-6xl px-6">
-    <ng-container *ngIf="selectedCard == 'Leave Management'">
+    <ng-container *ngIf="selectedCard === 'cards.leave.title'">
       <app-leave-status></app-leave-status>
     </ng-container>
-    <ng-container *ngIf="selectedCard == 'HR Letters'">
+
+    <ng-container *ngIf="selectedCard === 'cards.hr.title'">
       <app-documents></app-documents>
     </ng-container>
-    <ng-container *ngIf="selectedCard == 'Financials'">
+
+    <ng-container *ngIf="selectedCard === 'cards.payslip.title'">
       <app-pay-slip></app-pay-slip>
     </ng-container>
-    <ng-container *ngIf="selectedCard == 'Profile & ID'">
+
+    <ng-container *ngIf="selectedCard === 'cards.profile.title'">
       <app-profile></app-profile>
     </ng-container>
   </div>

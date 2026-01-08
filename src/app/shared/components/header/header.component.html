@@ -1,15 +1,20 @@
 <header
     class="bg-blue-600 dark:bg-slate-900 text-white p-4 flex justify-between items-center shadow-lg transition-colors duration-500 border-b border-blue-500/20 dark:border-slate-800">
-    <h1 class="text-xl font-bold tracking-tight">HR Demo App</h1>
+    <h1 class="text-xl font-bold tracking-tight"> {{ 'header.title' | translate }} </h1>
     <div class="flex items-center gap-4 ms-[1%]">
+         
         <button (click)="themeService.toggleTheme()"
             class="p-2 px-3 rounded-lg bg-white/10 dark:bg-slate-800 text-white dark:text-amber-400 hover:bg-white/20 transition-all flex items-center gap-2 border border-white/10 dark:border-slate-700">
             @if (themeService.isDarkMode()) {
-            <span class="text-sm font-medium">☀️ Light</span>
+            <span class="text-sm font-medium">{{ 'header.light' | translate }}</span>
             } @else {
-            <span class="text-sm font-medium">🌙 Dark</span>
+            <span class="text-sm font-medium">{{ 'header.dark' | translate }}</span>
             }
         </button>
+
+        <!-- Language Switch -->
+        <app-lang-switch></app-lang-switch>
+
         <button *ngIf="authService.isLoggedIn() && router.url !== '/login'" (click)="logout()"
             class="relative p-3 rounded-full bg-white/15 dark:bg-red-900/20 hover:bg-red-500/30 active:scale-95 transition-all duration-150 group"
             title="Logout">

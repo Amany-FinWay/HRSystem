@@ -2,11 +2,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { VirtualKeyboardComponent } from '../../../../../../shared/components/virtual-keyboard/virtual-keyboard.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-leave-request',
   standalone: true,
-  imports: [CommonModule, FormsModule, VirtualKeyboardComponent],
+  imports: [CommonModule, FormsModule, VirtualKeyboardComponent,TranslateModule],
   templateUrl: './leave-request.component.html',
   styleUrls: ['./leave-request.component.scss'],
 })
@@ -18,17 +19,17 @@ export class LeaveRequestComponent {
   keyboardVisibleTarget: boolean = false;
   showKeyboardTarget: boolean = false;
   reason: string = '';
-  leaveTypes = [
-    'Annual Leave',
-    'Sick Leave',
-    'Personal Leave',
-    'Maternity Leave',
-    'Paternity Leave',
-    'Unpaid Leave',
-    'Emergency Leave',
-    'Compassionate Leave',
-    'Study Leave',
-  ];
+ leaveTypes = [
+  'leave_request.types.annual',
+  'leave_request.types.sick',
+  'leave_request.types.personal',
+  'leave_request.types.maternity',
+  'leave_request.types.paternity',
+  'leave_request.types.unpaid',
+  'leave_request.types.emergency',
+  'leave_request.types.compassionate',
+  'leave_request.types.study',
+];
 
   form = {
     leaveType: '',

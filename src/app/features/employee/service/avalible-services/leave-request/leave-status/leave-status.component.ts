@@ -4,11 +4,12 @@ import { LeaveRequestComponent } from '../leave-request/leave-request.component'
 import { BalanceCard } from '../../../../../../shared/models/interfaces/BalanceCard.model';
 import { LeaveRow } from '../../../../../../shared/models/interfaces/LeaveRow.model';
 import { RequestsStatus } from '../../../../../../shared/models/types/RequestsStatus.type';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-leave-status',
   standalone: true,
-  imports: [CommonModule, LeaveRequestComponent],
+  imports: [CommonModule, LeaveRequestComponent,TranslateModule],
   templateUrl: './leave-status.component.html',
   styleUrls: ['./leave-status.component.scss'],
 })
@@ -16,69 +17,86 @@ export class LeaveStatusComponent implements OnInit {
   showLeaveModal = false;
 
   balanceCards: BalanceCard[] = [
-    {
-      title: 'Annual Leave',
-      remaining: 15,
-      iconBgClass: 'bg-blue-50 text-blue-600',
-      iconClass: 'fa-regular fa-calendar-days',
-    },
-    {
-      title: 'Sick Leave',
-      remaining: 12,
-      iconBgClass: 'bg-green-50 text-green-600',
-      iconClass: 'fa-regular fa-clock',
-    },
-    {
-      title: 'Personal Leave',
-      remaining: 5,
-      iconBgClass: 'bg-purple-50 text-purple-600',
-      iconClass: 'fa-solid fa-house',
-    },
-  ];
+  {
+    title: 'leave_status.cards.annual',
+    remaining: 15,
+    iconBgClass: 'bg-blue-50 text-blue-600',
+    iconClass: 'fa-regular fa-calendar-days',
+  },
+  {
+    title: 'leave_status.cards.sick',
+    remaining: 12,
+    iconBgClass: 'bg-green-50 text-green-600',
+    iconClass: 'fa-regular fa-clock',
+  },
+  {
+    title: 'leave_status.cards.personal',
+    remaining: 5,
+    iconBgClass: 'bg-purple-50 text-purple-600',
+    iconClass: 'fa-solid fa-house',
+  },
+];
+
 
   leaveRows: LeaveRow[] = [];
 
   // Demo data
   private demoData: LeaveRow[] = [
-    {
-      type: 'Annual Leave',
-      startDate: '2024-02-15',
-      endDate: '2024-02-19',
-      days: 5,
-      status: RequestsStatus.approved,
-      reason: 'Family vacation',
-    },
-    {
-      type: 'Sick Leave',
-      startDate: '2024-01-10',
-      endDate: '2024-01-12',
-      days: 3,
-      status: RequestsStatus.approved,
-      reason: 'Medical treatment',
-    },
-    {
-      type: 'Personal Leave',
-      startDate: '2024-02-28',
-      endDate: '2024-02-28',
-      days: 1,
-      status: RequestsStatus.pending,
-      reason: 'Personal matters',
-    },
-  ];
+  {
+    type: 'leave_status.cards.annual',
+    startDate: '2024-02-15',
+    endDate: '2024-02-19',
+    days: 5,
+    status: RequestsStatus.approved,
+    reason: 'Family vacation',
+  },
+  {
+    type: 'leave_status.cards.sick',
+    startDate: '2024-01-10',
+    endDate: '2024-01-12',
+    days: 3,
+    status: RequestsStatus.approved,
+    reason: 'Medical treatment',
+  },
+  {
+    type: 'leave_status.cards.personal',
+    startDate: '2024-02-28',
+    endDate: '2024-02-28',
+    days: 1,
+    status: RequestsStatus.pending,
+    reason: 'Personal matters',
+  },
+];
 
   ngOnInit(): void {
     this.loadLeaveRows();
   }
 
-  loadLeaveRows() {
-    const stored = localStorage.getItem('leaveRows');
-    if (stored) {
-      this.leaveRows = JSON.parse(stored);
-    } else {
-      this.leaveRows = this.demoData;
-      this.saveLeaveRows();
-    }
+loadLeaveRows() {
+  const stored = localStorage.getItem('leaveRows');
+
+  const mapOldTypeToKey: Record<string, string> = {
+    'Annual Leave': 'leave_status.cards.annual',
+    'Sick Leave': 'leave_status.cards.sick',
+    'Personal Leave': 'leave_status.cards.personal',
+  };
+
+  if (stored) {
+    const parsed: LeaveRow[] = JSON.parse(stored);
+
+    // upgrade old saved data (if any)
+    this.leaveRows = parsed.map((r) => ({
+      ...r,
+      type: mapOldTypeToKey[r.type] ?? r.type,
+    }));
+
+    // save upgraded version
+    this.saveLeaveRows();
+  } else {
+    this.leaveRows = this.demoData;
+    this.saveLeaveRows();
   }
+}
 
   saveLeaveRows() {
     localStorage.setItem('leaveRows', JSON.stringify(this.leaveRows));

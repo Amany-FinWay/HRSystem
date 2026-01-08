@@ -5,11 +5,12 @@ import { AuthService } from '../../../../../../core/services/auth.service';
 import { VirtualKeyboardComponent } from '../../../../../../shared/components/virtual-keyboard/virtual-keyboard.component';
 import { User } from '../../../../../../shared/models/interfaces/User.model';
 import { UserRole } from '../../../../../../shared/models/types/UserRole.type';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, FormsModule, VirtualKeyboardComponent],
+  imports: [CommonModule, FormsModule, VirtualKeyboardComponent,TranslateModule],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
@@ -41,7 +42,8 @@ export class ProfileComponent {
   pinSuccess = '';
   private messageTimer: any;
 
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService,
+  private translate: TranslateService) {}
   ngOnInit() {
     debugger
     const u = this.auth.getUser();
@@ -76,19 +78,19 @@ export class ProfileComponent {
       !this.pinForm.newPin ||
       !this.pinForm.confirmPin
     ) {
-      this.pinError = 'Please fill all PIN fields.';
+     this.pinError = this.translate.instant('profile.messages.fill_all');
       this.clearMessagesAfterDelay();
       return;
     }
 
     if (this.pinForm.newPin !== this.pinForm.confirmPin) {
-      this.pinError = 'New PIN and Confirm PIN do not match.';
+      this.pinError = this.translate.instant('profile.messages.not_match');
       this.clearMessagesAfterDelay();
       return;
     }
 
     if (!/^\d{4}$/.test(this.pinForm.newPin)) {
-      this.pinError = 'PIN must be 4 digits.';
+      this.pinError = this.translate.instant('profile.messages.invalid');
       this.clearMessagesAfterDelay();
       return;
     }

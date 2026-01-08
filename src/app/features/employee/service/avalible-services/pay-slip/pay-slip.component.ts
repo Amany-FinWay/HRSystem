@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-pay-slip',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,TranslateModule],
   templateUrl: './pay-slip.component.html',
   styleUrl: './pay-slip.component.scss',
 })
@@ -19,7 +20,7 @@ export class PaySlipComponent {
   selectedMonth = signal('January');
 
   years = [2024, 2025, 2026];
-  months = ['January', 'February', 'March', 'April'];
+months = ['January', 'February', 'March', 'April'];
 
   payslipDetails = signal({
     basic: 5000,

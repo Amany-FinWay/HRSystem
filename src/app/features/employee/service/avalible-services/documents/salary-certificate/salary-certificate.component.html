@@ -20,17 +20,18 @@
           </svg>
         </span>
         <h2 class="text-2xl font-black text-gray-800 dark:text-white tracking-tight">
-          Salary Certificate
+          {{ 'salary_certificate.title' | translate }}
         </h2>
       </div>
-      <p class="text-sm text-gray-500 dark:text-slate-400 font-medium ml-1">Generate an official letter with your
-        financial details.</p>
+      <p class="text-sm text-gray-500 dark:text-slate-400 font-medium ml-1">
+        {{ 'salary_certificate.subtitle' | translate }}
+      </p>
     </div>
 
     <form class="space-y-6">
       <div>
         <label class="block text-[11px] font-black uppercase text-gray-400 dark:text-slate-500 mb-2 ml-1 tracking-widest">
-          Select Language
+          {{ 'salary_certificate.select_language_label' | translate }}
         </label>
 
         <div class="relative">
@@ -39,7 +40,13 @@
 
             <div class="flex items-center gap-3">
               <i class="fa-solid fa-globe text-blue-500 text-base"></i>
-              <span>{{ selectedLanguage || 'Select Language' }}</span>
+              <span>
+                 {{
+                  selectedLanguage
+                    ? (('salary_certificate.languages.' + selectedLanguage) | translate)
+                    : ('salary_certificate.select_language_placeholder' | translate)
+                }}
+              </span>
             </div>
 
             <i class="fa-solid fa-chevron-down text-xs text-gray-400 transition-transform duration-300"
@@ -54,7 +61,7 @@
                 hover:bg-blue-50 dark:hover:bg-slate-700/50 group">
                 <span
                   class="w-8 h-8 rounded-full bg-gray-100 dark:bg-slate-900 flex items-center justify-center text-xs group-hover:bg-blue-100 dark:group-hover:bg-blue-900/40">🇺🇸</span>
-                <span class="text-gray-700 dark:text-slate-300 group-hover:text-blue-700 dark:group-hover:text-white">English</span>
+                <span class="text-gray-700 dark:text-slate-300 group-hover:text-blue-700 dark:group-hover:text-white">   {{ 'salary_certificate.languages.English' | translate }}</span>
                 <i *ngIf="selectedLanguage === 'English'" class="fa-solid fa-check ml-auto text-blue-500"></i>
               </button>
 
@@ -62,7 +69,7 @@
                 hover:bg-blue-50 dark:hover:bg-slate-700/50 group border-t border-gray-50 dark:border-slate-700/50">
                 <span
                   class="w-8 h-8 rounded-full bg-gray-100 dark:bg-slate-900 flex items-center justify-center text-xs group-hover:bg-blue-100 dark:group-hover:bg-blue-900/40">🇪🇬</span>
-                <span class="text-gray-700 dark:text-slate-300 group-hover:text-blue-700 dark:group-hover:text-white">Arabic</span>
+                <span class="text-gray-700 dark:text-slate-300 group-hover:text-blue-700 dark:group-hover:text-white">{{ 'salary_certificate.languages.Arabic' | translate }}</span>
                 <i *ngIf="selectedLanguage === 'Arabic'" class="fa-solid fa-check ml-auto text-blue-500"></i>
               </button>
             </div>
@@ -72,8 +79,9 @@
 
       <div>
         <label
-          class="block text-[11px] font-black uppercase text-gray-400 dark:text-slate-500 mb-2 ml-1 tracking-widest">Directed
-          To</label>
+          class="block text-[11px] font-black uppercase text-gray-400 dark:text-slate-500 mb-2 ml-1 tracking-widest">
+           {{ 'salary_certificate.directed_to_label' | translate }}
+        </label>
           <div class="relative">
         <input #target type="text" readonly [value]="directedTo" placeholder="e.g. Commercial International Bank (CIB)"
           (focus)="keyboardVisibleTarget = true" (blur)="hideKeyboardTarget()"
@@ -91,7 +99,7 @@
         <button type="button"
           class="px-6 py-3 font-bold text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:hover:text-slate-300 transition-colors uppercase text-xs tracking-widest"
           (click)="closeModal()">
-          Cancel
+           {{ 'salary_certificate.cancel' | translate }}
         </button>
 
         <button type="button"
@@ -100,7 +108,7 @@
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
           </svg>
-          Submit Request
+          {{ 'salary_certificate.submit' | translate }}
         </button>
       </div>
     </form>

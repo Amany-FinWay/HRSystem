@@ -7,15 +7,16 @@
     class="relative bg-white dark:bg-slate-800 rounded-[2.5rem] shadow-2xl w-full max-w-md p-10 z-10 border border-white dark:border-slate-700 transition-all">
 
     <div class="text-center mb-10">
-      <h1 class="text-3xl font-black text-gray-900 dark:text-white tracking-tight">HR Demo App</h1>
-      <p class="text-gray-400 dark:text-slate-500 mt-2 text-xs font-black uppercase tracking-[0.2em]">Employee Login</p>
+      <h1 class="text-3xl font-black text-gray-900 dark:text-white tracking-tight">  {{ 'login.app_title' | translate }} </h1>
+      <p class="text-gray-400 dark:text-slate-500 mt-2 text-xs font-black uppercase tracking-[0.2em]">  {{ 'login.subtitle' | translate }}</p>
     </div>
 
     <div class="mb-6 relative">
       <label
-        class="block ml-1 mb-2 text-[10px] font-black uppercase text-gray-400 dark:text-slate-500 tracking-widest">Employee
-        ID</label>
-      <input type="text" [value]="employeeId" placeholder="Enter your ID"
+        class="block ml-1 mb-2 text-[10px] font-black uppercase text-gray-400 dark:text-slate-500 tracking-widest">
+         {{ 'login.employee_id_label' | translate }}
+      </label>
+      <input type="text" [value]="employeeId" [placeholder]="'login.employee_id_placeholder' | translate"
         class="w-full h-14 px-6 bg-gray-50 dark:bg-slate-900 border border-gray-100 dark:border-slate-700 rounded-2xl text-sm font-bold text-gray-900 dark:text-white placeholder:text-gray-300 dark:placeholder:text-slate-600 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
         (focus)="showKeyboardEmployeeId()" (blur)="hideKeyboardEmployeeId()" />
 
@@ -28,9 +29,10 @@
 
     <div class="mb-8 relative">
       <label
-        class="block ml-1 mb-2 text-[10px] font-black uppercase text-gray-400 dark:text-slate-500 tracking-widest">Security
-        PIN</label>
-      <input type="password" [value]="pin" placeholder="••••"
+        class="block ml-1 mb-2 text-[10px] font-black uppercase text-gray-400 dark:text-slate-500 tracking-widest">
+        {{ 'login.pin_label' | translate }}
+      </label>
+      <input type="password" [value]="pin" [placeholder]="'login.employee_id_placeholder' | translate"
         class="w-full h-14 px-6 bg-gray-50 dark:bg-slate-900 border border-gray-100 dark:border-slate-700 rounded-2xl text-lg font-black text-gray-900 dark:text-white placeholder:text-gray-300 dark:placeholder:text-slate-600 focus:ring-2 focus:ring-blue-500 outline-none transition-all tracking-[0.5em]"
         (focus)="showKeyboardPin()" (blur)="hideKeyboardPin()" />
 
@@ -43,24 +45,26 @@
 
     <button (click)="login()"
       class="w-full h-14 rounded-2xl bg-blue-600 dark:bg-blue-500 text-white font-black uppercase tracking-widest text-sm shadow-xl shadow-blue-200 dark:shadow-none hover:scale-[1.02] active:scale-95 transition-all">
-      Login
+        {{ 'login.login_btn' | translate }}
     </button>
 
     <div class="flex items-center my-8">
       <hr class="flex-grow border-t border-gray-100 dark:border-slate-700" />
-      <span class="mx-4 text-[10px] font-black text-gray-400 dark:text-slate-600 uppercase tracking-widest">OR</span>
+      <span class="mx-4 text-[10px] font-black text-gray-400 dark:text-slate-600 uppercase tracking-widest">
+        {{ 'login.or' | translate }}
+      </span>
       <hr class="flex-grow border-t border-gray-100 dark:border-slate-700" />
     </div>
 
     <button (click)="loginBiometric()"
       class="w-full h-14 rounded-2xl bg-emerald-500 dark:bg-emerald-600 text-white font-black uppercase tracking-widest text-[10px] flex items-center justify-center gap-3 shadow-lg shadow-emerald-100 dark:shadow-none hover:bg-emerald-600 dark:hover:bg-emerald-500 transition-all">
       <i class="fa-solid fa-fingerprint text-lg"></i>
-      Login with Biometric
+       {{ 'login.biometric_btn' | translate }}
     </button>
 
     <p
       class="text-center text-gray-300 dark:text-slate-600 text-[10px] font-bold uppercase tracking-widest mt-8 italic">
-      Demo version only</p>
+      {{ 'login.demo_only' | translate }} </p>
   </div>
 
   <div *ngIf="showBiometricMessage"
@@ -72,10 +76,10 @@
         <i class="fa-solid fa-fingerprint text-6xl text-blue-500 relative"></i>
       </div>
       <p class="text-gray-900 dark:text-white text-base font-black text-center leading-tight">
-        Place your finger on the scanner
+        {{ 'login.bio_modal_title' | translate }}
       </p>
       <p class="text-gray-400 dark:text-slate-500 text-[10px] font-bold uppercase mt-2 tracking-widest">
-        Authenticating...</p>
+        {{ 'login.bio_modal_subtitle' | translate }} </p>
     </div>
   </div>
 </div>
