@@ -71,8 +71,8 @@
             class="w-full rounded-2xl border border-gray-100 dark:border-slate-700 bg-gray-50 dark:bg-slate-900 px-4 py-3 text-sm font-medium text-gray-900 dark:text-white placeholder:text-gray-300 dark:placeholder:text-slate-600 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all resize-none"></textarea>
             <div *ngIf="keyboardVisibleTarget"
               class="absolute left-0 right-0 z-[50] mt-2 p-2 bg-gray-100 dark:bg-slate-800 rounded-xl shadow-2xl border dark:border-slate-700">
-              <app-virtual-keyboard mode="letters" (keyPress)="appendKey('directedTo', $event)"
-                (backspace)="backspace('directedTo')" (clear)="clearInput('directedTo')">
+              <app-virtual-keyboard mode="letters" (keyPress)="appendKey('reason', $event)"
+                (backspace)="backspace('reason')" (clear)="clearInput('reason')" (space)="appendKey('reason', ' ')">
               </app-virtual-keyboard>
             </div>
           </div>

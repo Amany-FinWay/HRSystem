@@ -81,7 +81,7 @@
             <div *ngIf="keyboardVisibleTarget"
               class="absolute left-0 right-0 z-[50] mt-2 p-2 bg-gray-100 dark:bg-slate-800 rounded-xl shadow-2xl border dark:border-slate-700">
               <app-virtual-keyboard mode="letters" (keyPress)="appendKey('directedTo', $event)"
-                (backspace)="backspace('directedTo')" (clear)="clearInput('directedTo')">
+                (backspace)="backspace('directedTo')" (clear)="clearInput('directedTo')" (space)="appendKey('directedTo', ' ')">
               </app-virtual-keyboard>
             </div>
           </div>

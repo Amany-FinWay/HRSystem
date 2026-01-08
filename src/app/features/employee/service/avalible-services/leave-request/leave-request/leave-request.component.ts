@@ -63,7 +63,13 @@ export class LeaveRequestComponent {
   }
 
   onSubmit() {
+    this.form.reason = this.reason;
     this.submit.emit(this.form);
+    this.reason = '';
+    this.form.reason = '';
+    this.form.endDate = '';
+    this.form.startDate = '';
+    this.form.leaveType = '';
     this.onClose();
   }
 

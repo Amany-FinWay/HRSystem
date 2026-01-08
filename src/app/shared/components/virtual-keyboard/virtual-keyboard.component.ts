@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-virtual-keyboard',
@@ -14,6 +15,10 @@ export class VirtualKeyboardComponent {
   @Output() backspace = new EventEmitter<void>();
   @Output() clear = new EventEmitter<void>();
   @Output() space = new EventEmitter<void>();
+
+  constructor(
+    public router: Router
+  ) {}
 
   letters: string[][] = [
     ['Q','W','E','R','T','Y','U','I','O','P'],
