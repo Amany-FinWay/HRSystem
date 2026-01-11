@@ -4,6 +4,7 @@ import { HeaderComponent } from './shared/components/header/header.component';
 import { SpinnerComponent } from './shared/components/spinner/spinner.component';
 import { ToasterComponent } from './shared/components/toaster/toaster.component';
 import { ThemeService } from './core/services/theme.service';
+import { DocumentService } from './core/services/document.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -23,4 +24,8 @@ export class AppComponent implements AfterViewInit{
    ngAfterViewInit() {
     import('flowbite');
   }
+  
+  constructor(
+    private api: DocumentService
+  ) {}
 }

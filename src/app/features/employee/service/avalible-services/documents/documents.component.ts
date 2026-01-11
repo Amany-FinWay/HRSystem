@@ -9,6 +9,10 @@ import { Language } from '../../../../../shared/models/types/Language.type';
 import { AuthService } from '../../../../../core/services/auth.service';
 import { UserRole } from '../../../../../shared/models/types/UserRole.type';
 import { TranslateModule } from '@ngx-translate/core';
+import { DocumentService } from '../../../../../core/services/document.service';
+import { ConfigService } from '../../../../../core/services/config.service';
+import { AvailablePrintersModel } from '../../../../../shared/models/interfaces/AvailablePrinters.model';
+import { ActivePrinterModel } from '../../../../../shared/models/interfaces/ActivePrinterModel';
 
 @Component({
   selector: 'app-documents',
@@ -25,9 +29,13 @@ export class DocumentsComponent implements OnInit {
   requestsHistory = signal<any[]>([]);
   showSalaryModal = false;
   showExperienceModal = false;
+  activePrinter!: ActivePrinterModel;
+  fullPath: string = '';
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private documentService: DocumentService,
+    private configService: ConfigService
   ) {}
   
   ngOnInit(): void {
@@ -94,9 +102,37 @@ export class DocumentsComponent implements OnInit {
     const empId = req.requester.employeeId;
     const docType = typeMapping[req.type] || 'unknown';
     const lang = req.language?.toLowerCase() === 'arabic' ? 'AR' : 'EN';
-    const fileName = `${empId}-${docType}-${lang}.docx`;
-    const fullPath = `C:/HRSystemDocuments/${fileName}`;
-    console.log(fullPath);
+    const fileName = `${empId}-${docType}-${lang}.pdf`;
+    this.fullPath = `${this.configService.baseDocumentPath}/${fileName}`;
+    console.log(this.fullPath);
+
+    this.documentService.ListPrinters().subscribe({
+      next: (printers: AvailablePrintersModel[]) => {
+        printers.forEach(printer => {
+          this.onGetActivePrinter(printer.Index);
+        });
+      }
+    });
+  }
+
+  onGetActivePrinter(index: number) {
+    this.documentService.GetActivePrinter(index).subscribe({
+      next: (printerStatus) => {
+        if(printerStatus.status.StatusText === 'Ready' && (printerStatus.status.Name !== 'OneNote (Desktop)') || printerStatus.status.Name !== "OneNote for Windows 10") {
+          this.activePrinter = printerStatus;
+          console.log(this.activePrinter);
+          this.onPrintDocument(this.fullPath, printerStatus.status.Index);
+        }
+      }
+    });
+  }
+
+  onPrintDocument(pdf_pah: string, index: number) {
+    this.documentService.PrintDocument(pdf_pah, index).subscribe({
+      next: () => {
+        console.log('Print job sent successfully.');
+      }
+    });
   }
 
   @HostListener('window:storage', ['$event'])
