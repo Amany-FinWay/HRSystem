@@ -13,6 +13,7 @@ import { DocumentService } from '../../../../../core/services/document.service';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { AvailablePrintersModel } from '../../../../../shared/models/interfaces/AvailablePrinters.model';
 import { ActivePrinterModel } from '../../../../../shared/models/interfaces/ActivePrinterModel';
+import { SpinnerToasterService } from '../../../../../core/services/spinner-toaster.service';
 
 @Component({
   selector: 'app-documents',
@@ -35,7 +36,8 @@ export class DocumentsComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private documentService: DocumentService,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private spinnerService: SpinnerToasterService
   ) {}
   
   ngOnInit(): void {
@@ -95,6 +97,7 @@ export class DocumentsComponent implements OnInit {
   }
 
   downloadFile(req: any) {
+    this.spinnerService.showSpinner();
     const typeMapping: { [key: string]: string } = {
       'Experience Certificate': 'experience',
       'Salary Definition Letter': 'payslip'
@@ -108,9 +111,17 @@ export class DocumentsComponent implements OnInit {
 
     this.documentService.ListPrinters().subscribe({
       next: (printers: AvailablePrintersModel[]) => {
+        if (printers.length === 0) {
+            this.spinnerService.hideSpinner();
+            this.spinnerService.showToaster('error', 'No printers found');
+            return;
+        }
         printers.forEach(printer => {
           this.onGetActivePrinter(printer.Index);
         });
+      },error: (err) => {
+        this.spinnerService.hideSpinner();
+        this.spinnerService.showToaster('error', 'Failed to load printers');
       }
     });
   }
@@ -122,8 +133,11 @@ export class DocumentsComponent implements OnInit {
           this.activePrinter = printerStatus;
           console.log(this.activePrinter);
           this.onPrintDocument(this.fullPath, printerStatus.status.Index);
+        }else{
+          this.spinnerService.hideSpinner();
         }
-      }
+      },
+      error: () => this.spinnerService.hideSpinner()
     });
   }
 
@@ -131,6 +145,12 @@ export class DocumentsComponent implements OnInit {
     this.documentService.PrintDocument(pdf_pah, index).subscribe({
       next: () => {
         console.log('Print job sent successfully.');
+        this.spinnerService.hideSpinner();
+        this.spinnerService.showToaster('success', 'Document sent to printer successfully');
+      },
+      error: (err) => {
+        this.spinnerService.hideSpinner();
+        this.spinnerService.showToaster('error', 'Failed to print document');
       }
     });
   }
