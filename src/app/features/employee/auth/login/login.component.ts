@@ -86,13 +86,13 @@ export class LoginComponent {
     this.showBiometricMessage = true;
     const user: User = {
       id: 'BIO123',
-      name: 'Amany Abdelfattah',
+      name: 'Gamal Hazem',
       role: UserRole.employee,
-      department: 'Software',
-      hireDate: '2022-04-01',
-      jobTitle: 'Frontend Developer',
-      manager: 'Peter Saber',
-      avatarUrl: 'https://png.pngtree.com/png-vector/20241019/ourlarge/pngtree-a-smiling-female-employee-posing-png-image_14113973.png',
+      department: 'PS',
+      hireDate: '2025-09-01',
+      jobTitle: 'PS Engineer',
+      manager: 'Waheed Magdy',
+      avatarUrl: 'https://i.pravatar.cc/160?img=12',
       employeeId: 'BIO123'
     };
     localStorage.setItem('user', JSON.stringify(user));

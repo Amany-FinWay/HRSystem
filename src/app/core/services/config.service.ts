@@ -31,4 +31,8 @@ export class ConfigService {
   get baseDocumentPath(): string {
     return this.configSubject.value?.baseDocumentPath || '';
   }
+
+  get defaultPrinterName(): string {
+    return this.configSubject.value?.defaultPrinter || '';
+  }
 }
